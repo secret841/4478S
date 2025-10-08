@@ -23,7 +23,7 @@ void drivePID(double inches, int velocit, int waitTime)
     double slew = 500;
     int currWait = 0; 
 
-    //Keep loop runnning while error is greater than certain tolerance or under certainTime
+    //Keep loop runnning while error is greater than certain tolerance or under certain time
     while (fabs(error > 1) && currWait <= waitTime) 
     {
         currentPos = (left_motor.get_position() + right_motor.get_position()) / 2; 
