@@ -47,8 +47,8 @@ void defineRobot::turnPID(double heading, int velocit, int waitTime)
         error = Inertial.get_rotation() - heading;
         double power = (error * tKP) + (derivative * tKD); 
 
-        left_motor.move_voltage(power); 
-        right_motor.move_voltage(-power); 
+        left_motor.move_voltage(power * 1000); 
+        right_motor.move_voltage(-power * 1000); 
 
         derivative = error - prevError; 
         prevError = error; 
@@ -89,8 +89,8 @@ void defineRobot::drivePID(double inches, int velocit, int waitTime)
         {
             power < 0 ? power = -slew: power = slew; 
         }
-        left_motor.move_voltage(power); 
-        right_motor.move_voltage(power); 
+        left_motor.move_voltage(power * 1000); 
+        right_motor.move_voltage(power * 1000); 
 
         //Get change in error
         derivative = error - prevError; 
