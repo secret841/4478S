@@ -1,5 +1,9 @@
+#pragma once
 #include "main.h"
 #include "motors.h"
+#include "robo_class.h"
+#include "functions.h"
+
 
 /**
  * A callback function for LLEMU's center button.
@@ -7,14 +11,21 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
+int auton = 0; 
 void on_center_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		pros::lcd::set_text(2, "Hello World!");
-	} else {
-		pros::lcd::clear_line(2);
+	auton++; 
+
+	switch (auton)
+	{
+		case 1: 
+			pros::lcd::set_text(2, "Auton #1");
+		case 2:
+			pros::lcd::set_text(2, "Auton #2"); 
+		case 3:
+			pros::lcd::clear_line(2);
+			auton = 0; 
 	}
+
 }
 
 /**
@@ -27,6 +38,8 @@ void initialize() {
 	//Resets motors
 	left_motor.set_zero_position(0); 
 	right_motor.set_zero_position(0); 
+
+	Inertial.reset();
 
 
 	pros::lcd::initialize();
@@ -64,7 +77,12 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+	defineRobot Robot = defineRobot("4478S"); 
+
+	//First three are drivePID, next three are turnPID
+	Robot.setPID(0.1, 0, 0.5, 0.3, 0.2, 0.1);
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
