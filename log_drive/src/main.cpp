@@ -104,17 +104,19 @@ void opcontrol() {
 		left = master.get_analog(ANALOG_LEFT_Y); 
 		right = master.get_analog(ANALOG_RIGHT_Y);
 
-		left = (left * left) / 127; 
-		right = (right * right) / 127; 
-		if (left < 0)
-			left = -left; 
-		if (right < 0)
-			right = -right; 
+		double leftLog = (left * left) / 127; 
+		double rightLog = (right * right) / 127; 
+		
 
-		if (left >= 0.8 || right >= 0.8)
+		if (fabs(leftLog) >= 0.8 || fabs(rightLog) >= 0.8)
 		{
-			left_motor.move(left); 
-			right_motor.move(right); 
+			if (left < 0)
+				leftLog = -leftLog;
+			if (right < 0)
+				rightLog = -rightLog; 
+		
+			left_motor.move(leftLog); 
+			right_motor.move(rightLog); 
 		}
 		else
 		{
@@ -130,22 +132,17 @@ void opcontrol() {
 		//Intake
 		if (master.get_digital(DIGITAL_R1))
 		{
-			intakeLeft.move_velocity(600); 
-			intakeRight.move_velocity(600); 
+			intakeLow.move_velocity(600); 	
 		}
 		else if (master.get_digital(DIGITAL_R2))
 		{
-			intakeLeft.move_velocity(-600); 
-			intakeRight.move_velocity(-600); 
+			intakeLow.move_velocity(-600); 
 		}
 		else
 		{
 			//Brake Motors
-			intakeLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
-			intakeRight.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
-
-			intakeLeft.move_velocity(0); 
-			intakeRight.move_velocity(0); 
+			intakeLow.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
+			intakeLow.move_velocity(0); 
 		}
 		
 
