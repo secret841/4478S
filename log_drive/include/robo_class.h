@@ -77,27 +77,30 @@ void defineRobot::drivePID(double inches, int velocit, int waitTime)
     int currWait = 0; 
 
     //Keep loop runnning while error is greater than certain tolerance or under certain time
-    while (fabs(error > 1) && currWait <= waitTime) 
+    while (fabs(error) > 1 && currWait <= waitTime) 
     {
         currentPos = (left_motor.get_position() + right_motor.get_position()) / 2; 
         error = endPos - currentPos; 
 
+         derivative = error - prevError; 
+
         //Calculate power and then move robot
         double power = (error * kP) + (derivative * kD);
+        power *= velocit;
 
-        if (power > slew)
+        if (fabs(power) > slew)
         {
             power < 0 ? power = -slew: power = slew; 
         }
-        left_motor.move_voltage(power * 1000); 
-        right_motor.move_voltage(power * 1000); 
+        left_motor.move_velocity(power); 
+        right_motor.move_velocity(power); 
 
         //Get change in error
-        derivative = error - prevError; 
+       
         prevError = error;
 
         //Delay to keep CPU healthy, increment slew rate
-        slew += 100; 
+        slew += 20; 
         currWait += 20;
         pros::delay(20);  
 
@@ -107,6 +110,8 @@ void defineRobot::drivePID(double inches, int velocit, int waitTime)
     right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
     left_motor.move_velocity(0);
     right_motor.move_velocity(0); 
+
+    return;
 }
 
 

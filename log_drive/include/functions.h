@@ -6,6 +6,14 @@ const float wheelRadius = 2.75;
 float inchesToDegrees(double inches)
 {
     double degrees = (inches) / (2 * M_PI * wheelRadius);
-    degrees *= 360; 
+    degrees *= 360;
     return degrees;
+}
+
+void intake (void * param)
+{
+    while (true)
+    {
+        intakeLow.move_velocity(-600); 
+    }
 }

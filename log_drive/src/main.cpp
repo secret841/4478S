@@ -70,7 +70,7 @@ void competition_initialize() {}
  * Runs the user autonomous code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
  * the Field Management System or the VEX Competition Switch in the autonomous
- * mode. Alternatively, this function may be called in initialize or opcontrol
+ * mode. Alternatively, this function may be called in initialize or opcontrol  
  * for non-competition testing purposes.
  *
  * If the robot is disabled or communications is lost, the autonomous task
@@ -79,10 +79,57 @@ void competition_initialize() {}
  */
 void autonomous() {
 	defineRobot Robot = defineRobot("4478S"); 
-
+	//Robot.setPID(1.5, 0, 0.5, 0.5, 0.3, 0.2); 
+	//Robot.drivePID(20, 0.5, 2000);
 	//First three are drivePID, next three are turnPID
-	Robot.setPID(0.1, 0, 0.5, 0.3, 0.2, 0.1);
+	
+	//pros::delay(2000);
+
+	intakeLow.move_velocity(-600);
+  left_motor.move_relative(2450, 110);
+  right_motor.move_relative(2450, 110);
+
+  
+
+  pros::delay(2800);
+
+  left_motor.move_relative(-250, 100);
+  right_motor.move_relative(-250, 100);
+
+  pros::delay(1700); 
+
+   left_motor.move_relative(-350, 50);
+  right_motor.move_relative(350, 50);
+
+  pros::delay(2000); 
+  intakeLow.move_velocity(0);
+
+    left_motor.move_relative(2100, 100);
+  right_motor.move_relative(2100, 100);
+
+  pros::delay(2000); 
+  
+
+    left_motor.move_relative(-250, 100);
+  right_motor.move_relative(-250, 100);
+
+  pros::delay(1000);
+   intakeLow.move_velocity(600);
+
+   pros::delay(500); 
+
+    left_motor.move_relative(-15, 80);
+  right_motor.move_relative(15, 80);
+
+   pros::delay(1000); 
+
+      
+    left_motor.move_relative(-500, 100);
+  right_motor.move_relative(-500, 100);
+  intakeLow.move_velocity(600);
 }
+
+
 
 /**
  * Runs the operator control code. This function will be started in its own task
