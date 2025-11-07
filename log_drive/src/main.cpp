@@ -79,54 +79,18 @@ void competition_initialize() {}
  */
 void autonomous() {
 	defineRobot Robot = defineRobot("4478S"); 
-	//Robot.setPID(1.5, 0, 0.5, 0.5, 0.3, 0.2); 
-	//Robot.drivePID(20, 0.5, 2000);
+	
 	//First three are drivePID, next three are turnPID
+	Robot.setPID(1.1, 0, 0.56, 2.9, 0, 0.6); 
+	/*Robot.drivePID(20, 1, 2000);
+	Robot.drivePID(-15, 0.8, 2000);*/
+	Robot.turnPID(90, 1, 2000);
+	Robot.turnPID(0, 1, 2000);
+
+	Robot.drivePID(10, 1, 2000);
+	Robot.drivePID(-10, 1, 2000);
 	
 	//pros::delay(2000);
-
-	intakeLow.move_velocity(-600);
-  left_motor.move_relative(2450, 110);
-  right_motor.move_relative(2450, 110);
-
-  
-
-  pros::delay(2800);
-
-  left_motor.move_relative(-250, 100);
-  right_motor.move_relative(-250, 100);
-
-  pros::delay(1700); 
-
-   left_motor.move_relative(-350, 50);
-  right_motor.move_relative(350, 50);
-
-  pros::delay(2000); 
-  intakeLow.move_velocity(0);
-
-    left_motor.move_relative(2100, 100);
-  right_motor.move_relative(2100, 100);
-
-  pros::delay(2000); 
-  
-
-    left_motor.move_relative(-250, 100);
-  right_motor.move_relative(-250, 100);
-
-  pros::delay(1000);
-   intakeLow.move_velocity(600);
-
-   pros::delay(500); 
-
-    left_motor.move_relative(-15, 80);
-  right_motor.move_relative(15, 80);
-
-   pros::delay(1000); 
-
-      
-    left_motor.move_relative(-500, 100);
-  right_motor.move_relative(-500, 100);
-  intakeLow.move_velocity(600);
 }
 
 
@@ -167,13 +131,9 @@ void opcontrol() {
 		}
 		else
 		{
-			//Brake Motors
-			left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
-			right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
-
 			left_motor.move_velocity(0); 
 			right_motor.move_velocity(0); 
-			
+
 		}
 		
 		//Intake
@@ -192,8 +152,6 @@ void opcontrol() {
 			intakeLow.move_velocity(0); 
 		}
 		
-
-	
 		pros::delay(20);                               // Run for 20 ms then update
 	}
 }

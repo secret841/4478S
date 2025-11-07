@@ -16,8 +16,8 @@ class defineRobot {
         }
         std::string returnName(); 
         void setPID(double p, double i, double d, double tP, double tI, double tD); 
-        void drivePID(double inches, int velocit, int waitTime); 
-        void turnPID(double heading, int velocit, int waitTime); 
+        void drivePID(double inches, double velocit, int waitTime); 
+        void turnPID(double heading, double velocit, int waitTime); 
 };
 
 void defineRobot::setPID(double p, double i, double d, double tP, double tI, double tD)
@@ -35,20 +35,21 @@ std::string defineRobot::returnName()
     return robotName;
 }
 
-void defineRobot::turnPID(double heading, int velocit, int waitTime)
+void defineRobot::turnPID(double heading, double velocit, int waitTime)
 {
     int currWait = 0;
     double error = heading - Inertial.get_rotation(); 
+     pros::lcd::set_text(2, "Original Error " + std::to_string(error)); 
     double derivative = 0;
     double prevError = 0;
     
     while (fabs(error) >= 0.1 && currWait <= waitTime)
     {
-        error = Inertial.get_rotation() - heading;
+        error = heading - Inertial.get_rotation();
         double power = (error * tKP) + (derivative * tKD); 
 
-        left_motor.move_voltage(power * 1000); 
-        right_motor.move_voltage(-power * 1000); 
+        left_motor.move_velocity(power); 
+        right_motor.move_velocity(-power); 
 
         derivative = error - prevError; 
         prevError = error; 
@@ -56,6 +57,7 @@ void defineRobot::turnPID(double heading, int velocit, int waitTime)
         //Keeps robot from self-destructing
         currWait += 20;
         pros::delay(20); 
+        pros::lcd::set_text(1, std::to_string(error)); 
     }
     left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
@@ -63,7 +65,7 @@ void defineRobot::turnPID(double heading, int velocit, int waitTime)
     right_motor.move_velocity(0); 
 }
 
-void defineRobot::drivePID(double inches, int velocit, int waitTime)
+void defineRobot::drivePID(double inches, double velocit, int waitTime)
 {
     //Initialize a million different variables
     double degrees = inchesToDegrees(inches);
@@ -73,15 +75,16 @@ void defineRobot::drivePID(double inches, int velocit, int waitTime)
     double derivative = 0;  
     double prevError = 0; 
 
-    double slew = 500;
+    double slew = 100;
     int currWait = 0; 
 
+ 
     //Keep loop runnning while error is greater than certain tolerance or under certain time
     while (fabs(error) > 1 && currWait <= waitTime) 
     {
         currentPos = (left_motor.get_position() + right_motor.get_position()) / 2; 
         error = endPos - currentPos; 
-
+ 
          derivative = error - prevError; 
 
         //Calculate power and then move robot
@@ -102,7 +105,8 @@ void defineRobot::drivePID(double inches, int velocit, int waitTime)
         //Delay to keep CPU healthy, increment slew rate
         slew += 20; 
         currWait += 20;
-        pros::delay(20);  
+        pros::delay(20);
+        // pros::lcd::set_text(1, std::to_string(error));  
 
     }
     //Stops the motors
