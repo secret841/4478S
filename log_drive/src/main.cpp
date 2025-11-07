@@ -11,17 +11,19 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 0; 
+int auton = 2; 
 void on_center_button() {
 	auton++; 
 
 	switch (auton)
 	{
 		case 1: 
-			pros::lcd::set_text(2, "Auton #1");
+			pros::lcd::set_text(2, "Low Goal Auton");
 		case 2:
-			pros::lcd::set_text(2, "Auton #2"); 
-		case 3:
+			pros::lcd::set_text(2, "Mid Goal Auton"); 
+		case 3: 
+			pros::lcd::set_text(2, "Skills Auton"); 
+		case 4:
 			pros::lcd::clear_line(2);
 			auton = 0; 
 	}
@@ -82,13 +84,63 @@ void autonomous() {
 	
 	//First three are drivePID, next three are turnPID
 	Robot.setPID(1.1, 0, 0.56, 2.9, 0, 0.6); 
+	 
 	/*Robot.drivePID(20, 1, 2000);
 	Robot.drivePID(-15, 0.8, 2000);*/
-	Robot.turnPID(90, 1, 2000);
-	Robot.turnPID(0, 1, 2000);
+	/*Robot.turnPID(90, 1, 2000);
+	Robot.turnPID(0, 1, 2000);*/
 
-	Robot.drivePID(10, 1, 2000);
-	Robot.drivePID(-10, 1, 2000);
+	//Low Goal
+	if (auton == 1)
+	{
+		Robot.drivePID(16, 1, 2000);
+		intakeLow.move_velocity(400);
+
+		Robot.drivePID(10, 0.7, 2000);
+		intakeLow.move_velocity(0); 
+
+		Robot.drivePID(7.5, 0.5, 2000);
+
+		Robot.turnPID(-55, 1, 1500);
+
+		Robot.drivePID(20, 1, 1000); 
+		intakeLow.move_velocity(-600); 
+
+		Robot.drivePID(-5, 1, 1000); 
+		Robot.drivePID(5, 2, 1000);
+	}
+
+	//Mid Goal
+	if (auton == 2)
+	{
+		Robot.drivePID(18, 1, 2200);
+		intakeLow.move_velocity(400);
+
+		Robot.drivePID(8, 0.7, 2000);
+		intakeLow.move_velocity(0); 
+
+		Robot.drivePID(9.5, 0.5, 2000);
+
+		Robot.turnPID(-105, 1, 1500);
+
+		Robot.drivePID(-23, 1, 1000); 
+		intakeLow.move_velocity(600); 
+
+		Robot.drivePID(5, 1, 1000); 
+		Robot.drivePID(-5, 2, 1000);
+
+		Robot.drivePID(5, 1, 1000); 
+		Robot.drivePID(-5, 2, 1000);
+	}
+
+	//Skills
+	if (auton == 3)
+	{
+		Robot.drivePID(10, 1, 2000);
+		Robot.drivePID(-20, 2, 2000);
+	}
+	 
+	//Robot.drivePID(-10, 1, 2000);
 	
 	//pros::delay(2000);
 }
@@ -110,6 +162,7 @@ void autonomous() {
  */
 void opcontrol() {
 	double left, right; 
+	bool moveIntake = false;
 	while (true) {
 		//Log Drive
 		left = master.get_analog(ANALOG_LEFT_Y); 
@@ -139,7 +192,7 @@ void opcontrol() {
 		//Intake
 		if (master.get_digital(DIGITAL_R1))
 		{
-			intakeLow.move_velocity(600); 	
+			intakeLow.move_velocity(600);  
 		}
 		else if (master.get_digital(DIGITAL_R2))
 		{
@@ -147,10 +200,10 @@ void opcontrol() {
 		}
 		else
 		{
-			//Brake Motors
-			intakeLow.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
-			intakeLow.move_velocity(0); 
+			intakeLow.move_velocity(0);
 		}
+
+		
 		
 		pros::delay(20);                               // Run for 20 ms then update
 	}
