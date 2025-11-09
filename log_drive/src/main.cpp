@@ -14,18 +14,24 @@
 int auton = 2; 
 void on_center_button() {
 	auton++; 
-
-	switch (auton)
+	
+	
+	if (auton == 1)
 	{
-		case 1: 
-			pros::lcd::set_text(2, "Low Goal Auton");
-		case 2:
-			pros::lcd::set_text(2, "Mid Goal Auton"); 
-		case 3: 
-			pros::lcd::set_text(2, "Skills Auton"); 
-		case 4:
-			pros::lcd::clear_line(2);
-			auton = 0; 
+		pros::lcd::set_text(2, "Low Goal Auton");
+	}
+	else if (auton == 2)
+	{
+		pros::lcd::set_text(2, "Mid Goal Auton");
+	}
+	else if (auton == 3)
+	{
+		pros::lcd::set_text(2, "Skills Auton"); 
+	}
+	else
+	{
+		pros::lcd::clear_line(2);
+		auton = 0; 
 	}
 
 }
@@ -93,6 +99,7 @@ void autonomous() {
 	//Low Goal
 	if (auton == 1)
 	{
+		pros::lcd::set_text(1, "Low Goal"); 
 		Robot.drivePID(16, 1, 2000);
 		intakeLow.move_velocity(400);
 
@@ -113,31 +120,43 @@ void autonomous() {
 	//Mid Goal
 	if (auton == 2)
 	{
-		Robot.drivePID(18, 1, 2200);
-		intakeLow.move_velocity(400);
+		pros::lcd::set_text(1, "Mid Goal"); 
+		Robot.drivePID(19.5, 1, 2200);
+		intakeLow.move_velocity(500);
 
-		Robot.drivePID(8, 0.7, 2000);
-		intakeLow.move_velocity(0); 
+		Robot.drivePID(8, 0.75, 2000);
+		pros::delay(450);
 
-		Robot.drivePID(9.5, 0.5, 2000);
+		intakeLow.move_velocity(100); 
 
-		Robot.turnPID(-105, 1, 1500);
+		Robot.drivePID(9, 0.5, 2000);
 
-		Robot.drivePID(-23, 1, 1000); 
+		Robot.turnPID(-105, 0.8, 2200);
+
+		Robot.drivePID(-22.5, 1, 1000); 
 		intakeLow.move_velocity(600); 
 
-		Robot.drivePID(5, 1, 1000); 
-		Robot.drivePID(-5, 2, 1000);
+		pros::delay(2000); 
+		intakeLow.move(127); 
 
 		Robot.drivePID(5, 1, 1000); 
-		Robot.drivePID(-5, 2, 1000);
+		Robot.drivePID(-4, 1, 1000);
+		intakeLow.move_relative(-50, 30); 
+		pros::delay(50);
+		intakeLow.move_velocity(-100);
+		pros::delay(100); 
+		intakeLow.move_velocity(600);
+		intakeLow.move_velocity(600);
+		intakeLow.move_velocity(600);
 	}
 
 	//Skills
 	if (auton == 3)
 	{
+		pros::lcd::set_text(1, "Skills"); 
 		Robot.drivePID(10, 1, 2000);
-		Robot.drivePID(-20, 2, 2000);
+		Robot.turnPID(10, 1, 1000);
+		Robot.drivePID(-55, 5, 2000);
 	}
 	 
 	//Robot.drivePID(-10, 1, 2000);
@@ -163,6 +182,8 @@ void autonomous() {
 void opcontrol() {
 	double left, right; 
 	bool moveIntake = false;
+
+	intakeLow.move_velocity(0); 
 	while (true) {
 		//Log Drive
 		left = master.get_analog(ANALOG_LEFT_Y); 

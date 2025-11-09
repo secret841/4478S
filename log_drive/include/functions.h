@@ -11,10 +11,11 @@ float inchesToDegrees(double inches)
     return degrees;
 }
 
+int velocityMove = 600; 
 void intake (void * param)
 {
     while (true)
     {
-        intakeLow.move_velocity(-600); 
+        intakeLow.move_velocity(velocityMove); 
     }
 }
