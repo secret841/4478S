@@ -146,14 +146,16 @@ void autonomous() {
 		intakeLow.move_velocity(-100);
 		pros::delay(100); 
 		intakeLow.move_velocity(600);
+		intakeUp.move_velocity(600);
 		intakeLow.move_velocity(600);
+		intakeUp.move_velocity(600);
 		intakeLow.move_velocity(600);
 	}
 
 	//Skills
 	if (auton == 3)
 	{
-		pros::lcd::set_text(1, "Skills"); 
+		pros::lcd::set_text(1, "USE THE MID GOAL AUTON FOR SKILLS"); 
 		Robot.drivePID(10, 1, 2000);
 		Robot.turnPID(10, 1, 1000);
 		Robot.drivePID(-55, 5, 2000);
@@ -182,6 +184,8 @@ void autonomous() {
 void opcontrol() {
 	double left, right; 
 	bool moveIntake = false;
+	bool noMove = false; 
+	bool latch = false; 
 
 	intakeLow.move_velocity(0); 
 	while (true) {
@@ -209,20 +213,55 @@ void opcontrol() {
 			right_motor.move_velocity(0); 
 
 		}
+
+		//Old Code in case the driver Changes Her Mind 
+		/*
+			if (master.get_digital(DIGITAL_R1))
+			{
+				intakeLow.move_velocity(600); 
+			}
+			else if (master.get_digital(DIGITAL_R2))
+			{
+				intakeLow.move_velocity(-600);
+			}
+			else
+			{
+				intakeLow.move_velocity(0); 
+			}
+		*/
 		
 		//Intake
-		if (master.get_digital(DIGITAL_R1))
+		if (master.get_digital_new_press(DIGITAL_R1))
 		{
-			intakeLow.move_velocity(600);  
+			moveIntake = !moveIntake; 
 		}
-		else if (master.get_digital(DIGITAL_R2))
+		bool reverse = (master.get_digital_new_press(DIGITAL_R2));
+
+		
+
+		if (reverse)
 		{
 			intakeLow.move_velocity(-600); 
 		}
+		else if (moveIntake)
+		{
+			intakeLow.move_velocity(600); 
+		}
 		else
 		{
-			intakeLow.move_velocity(0);
+			intakeLow.move_velocity(0); 
 		}
+
+		//Code for the upper intake
+		if (master.get_digital(DIGITAL_L1))
+		{
+			intakeUp.move_velocity(600); 
+		}
+		else
+		{
+			intakeUp.move_velocity(-150);
+		}
+
 
 		
 		
