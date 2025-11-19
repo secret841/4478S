@@ -184,6 +184,7 @@ void autonomous() {
 void opcontrol() {
 	double left, right; 
 	bool moveIntake = false;
+	bool reverse = false; 
 	bool noMove = false; 
 	bool latch = false; 
 
@@ -230,13 +231,17 @@ void opcontrol() {
 			}
 		*/
 		
-		//Intake
+		//Intake 
 		if (master.get_digital_new_press(DIGITAL_R1))
 		{
 			moveIntake = !moveIntake; 
+			reverse = false; 
 		}
-		bool reverse = (master.get_digital_new_press(DIGITAL_R2));
-
+		if (master.get_digital_new_press(DIGITAL_R2))
+		{
+			reverse = !reverse; 
+			moveIntake = false; 
+		}
 		
 
 		if (reverse)
@@ -259,7 +264,7 @@ void opcontrol() {
 		}
 		else
 		{
-			intakeUp.move_velocity(-150);
+			intakeUp.move_velocity(-50);
 		}
 
 
