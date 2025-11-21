@@ -101,17 +101,20 @@ void autonomous() {
 	{
 		pros::lcd::set_text(1, "Low Goal"); 
 		Robot.drivePID(16, 1, 2000);
-		intakeLow.move_velocity(400);
+		intakeLow.move_velocity(600);
+		intakeUp.move_velocity(-50);
 
 		Robot.drivePID(10, 0.7, 2000);
-		intakeLow.move_velocity(0); 
+		intakeLow.move_velocity(600); 
 
 		Robot.drivePID(7.5, 0.5, 2000);
 
 		Robot.turnPID(-55, 1, 1500);
 
 		Robot.drivePID(20, 1, 1000); 
-		intakeLow.move_velocity(-600); 
+		intakeLow.move_velocity(-600);
+		
+		pros::delay(1000);
 
 		Robot.drivePID(-5, 1, 1000); 
 		Robot.drivePID(5, 2, 1000);
@@ -121,35 +124,55 @@ void autonomous() {
 	if (auton == 2)
 	{
 		pros::lcd::set_text(1, "Mid Goal"); 
-		Robot.drivePID(19.5, 1, 2200);
-		intakeLow.move_velocity(500);
 
-		Robot.drivePID(8, 0.75, 2000);
-		pros::delay(450);
+		intakeLow.move_velocity(600);
+		intakeUp.move_velocity(-100); 
+		Robot.drivePID(19, 0.8, 2300);
+		
+		Robot.drivePID(9.5, 0.5, 2000);
+		pros::delay(250);
 
-		intakeLow.move_velocity(100); 
-
-		Robot.drivePID(9, 0.5, 2000);
-
-		Robot.turnPID(-105, 0.8, 2200);
-
-		Robot.drivePID(-22.5, 1, 1000); 
 		intakeLow.move_velocity(600); 
 
-		pros::delay(2000); 
-		intakeLow.move(127); 
+		Robot.drivePID(9.5, 0.6, 1000);
+		pros::delay(200);
 
-		Robot.drivePID(5, 1, 1000); 
+		Robot.turnPID(-111, 0.85, 1800);
+
+		//Drive towards mid goal
+		Robot.drivePID(-21.5, 0.8, 1000); 
+
+		//Back up a bit, then score
+		Robot.drivePID(2, 0.9, 500); 
+		pros::delay(300);
+		intakeLow.move_velocity(600); 
+		intakeUp.move_velocity(220); 
+
+		pros::delay(1000);
+		intakeUp.move_velocity(0);  
+		intakeLow.move_velocity(600); 
+
+		Robot.drivePID(18, 1, 900);
+		Robot.turnPID(-100, 1, 800);
+
+		Robot.drivePID(30, 1.5, 1600);
+		Robot.turnPID(-169, 1.5, 800);
+		Robot.drivePID(-18, 1, 1000);
+		
+		intakeLow.move_velocity(600);
+		intakeUp.move_velocity(600); 
+
+		/*Robot.drivePID(5, 1, 1000); 
 		Robot.drivePID(-4, 1, 1000);
 		intakeLow.move_relative(-50, 30); 
 		pros::delay(50);
 		intakeLow.move_velocity(-100);
 		pros::delay(100); 
 		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(600);
+		intakeUp.move_velocity(200);
 		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(600);
-		intakeLow.move_velocity(600);
+		intakeUp.move_velocity(200);
+		intakeLow.move_velocity(600);*/
 	}
 
 	//Skills
@@ -231,7 +254,7 @@ void opcontrol() {
 			}
 		*/
 		
-		//Intake 
+		//Intake Toggle
 		if (master.get_digital_new_press(DIGITAL_R1))
 		{
 			moveIntake = !moveIntake; 
@@ -261,6 +284,11 @@ void opcontrol() {
 		if (master.get_digital(DIGITAL_L1))
 		{
 			intakeUp.move_velocity(600); 
+		}
+		//Specific for mid-goal
+		else if (master.get_digital(DIGITAL_L2))
+		{
+			intakeUp.move_velocity(150); 
 		}
 		else
 		{
