@@ -11,22 +11,30 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 2; 
+int auton = 4; 
 void on_center_button() {
 	auton++; 
 	
 	
 	if (auton == 1)
 	{
-		pros::lcd::set_text(2, "Low Goal Auton");
+		pros::lcd::set_text(2, "Main Low Goal Auton");
 	}
 	else if (auton == 2)
 	{
-		pros::lcd::set_text(2, "Mid Goal Auton");
+		pros::lcd::set_text(2, "Main Mid Goal Auton");
 	}
 	else if (auton == 3)
 	{
-		pros::lcd::set_text(2, "Skills Auton"); 
+		pros::lcd::set_text(2, "Skills Auton (One Block + Park)"); 
+	}
+	else if (auton == 4)
+	{
+		pros::lcd::set_text(2, "One Block Long Goal (Mid Goal Side)"); 
+	}
+	else if (auton == 5)
+	{
+		pros::lcd::set_text(2, "One Block Long Goal (Low Goal Side)"); 
 	}
 	else
 	{
@@ -100,6 +108,10 @@ void autonomous() {
 	if (auton == 1)
 	{
 		pros::lcd::set_text(1, "Low Goal"); 
+
+		intakeLow.move_velocity(600);
+		intakeUp.move_velocity(-50);
+
 		Robot.drivePID(16, 1, 2000);
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(-50);
@@ -148,40 +160,63 @@ void autonomous() {
 		intakeLow.move_velocity(600); 
 		intakeUp.move_velocity(220); 
 
-		pros::delay(1000);
+		pros::delay(800);
 		intakeUp.move_velocity(0);  
 		intakeLow.move_velocity(600); 
 
 		Robot.drivePID(18, 1, 900);
 		Robot.turnPID(-100, 1, 800);
 
-		Robot.drivePID(30, 1.5, 1600);
-		Robot.turnPID(-169, 1.5, 800);
+		Robot.drivePID(27, 1.4, 1600);
+		Robot.turnPID(-169, 1.3, 800);
 		Robot.drivePID(-18, 1, 1000);
 		
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(600); 
-
-		/*Robot.drivePID(5, 1, 1000); 
-		Robot.drivePID(-4, 1, 1000);
-		intakeLow.move_relative(-50, 30); 
-		pros::delay(50);
-		intakeLow.move_velocity(-100);
-		pros::delay(100); 
-		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(200);
-		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(200);
-		intakeLow.move_velocity(600);*/
 	}
 
-	//Skills
 	if (auton == 3)
 	{
-		pros::lcd::set_text(1, "USE THE MID GOAL AUTON FOR SKILLS"); 
-		Robot.drivePID(10, 1, 2000);
-		Robot.turnPID(10, 1, 1000);
-		Robot.drivePID(-55, 5, 2000);
+		pros::lcd::set_text(1, "One Block + Park for Skills");
+		Robot.drivePID(40, 0.5, 3500);
+		Robot.turnPID(-90, 0.9, 2000);  
+		Robot.drivePID(-35, 0.6, 1600);
+
+		intakeLow.move_velocity(600); 
+		intakeUp.move_velocity(600);
+
+		pros::delay(6000); 
+
+		Robot.drivePID(30, 0.8, 3000);
+		Robot.turnPID(10, 0.9, 2000); 
+		Robot.drivePID(-45, 1, 4000);
+		Robot.turnPID(0, 1, 2000); 
+		Robot.drivePID(-55, 1, 4000);
+	}
+
+	if (auton == 4)
+	{
+		pros::lcd::set_text(1, "One Block Long Goal Auto (Mid Goal Side)");
+
+		//Drive, Turn, Drive towards Long Goal
+		Robot.drivePID(40, 0.5, 3500);
+		Robot.turnPID(-90, 0.9, 2000);  
+		Robot.drivePID(-35, 0.6, 1600);
+
+		//Outtake
+		intakeLow.move_velocity(600); 
+		intakeUp.move_velocity(600);
+	}
+
+	if (auton == 5)
+	{
+		pros::lcd::set_text(1, "One Block Long Goal Auto (Low Goal Side)");
+		Robot.drivePID(40, 0.5, 3500);
+		Robot.turnPID(90, 0.9, 2000);  
+		Robot.drivePID(-35, 0.6, 1600);
+
+		intakeLow.move_velocity(600); 
+		intakeUp.move_velocity(600);
 	}
 	 
 	//Robot.drivePID(-10, 1, 2000);
