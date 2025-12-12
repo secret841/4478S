@@ -11,7 +11,7 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 2; 
+int auton = 3; 
 void on_center_button() {
 	auton++; 
 	
@@ -107,16 +107,53 @@ void autonomous() {
 	//Low Goal
 	if (auton == 1)
 	{
+		//YOU HAVE 8878F's CONTROLLER
 		pros::lcd::set_text(1, "Low Goal"); 
 
 		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(-50);
+		intakeUp.move_velocity(-100);
 
-		Robot.drivePID(16, 1, 2000);
+		Robot.drivePID(15, 1, 1500);
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(-50);
 
-		Robot.drivePID(10, 0.7, 2000);
+		Robot.drivePID(7, 0.75, 800); 
+		Robot.drivePID(10, 1.2,1000); 
+		Robot.turnPID(-70, 1, 1000); 
+
+		Robot.drivePID(15, 1, 1000); 
+
+		Robot.turnPID(-75, 0.9, 250);
+		intakeLow.move_velocity(-600);
+
+		//pros::delay(1200); 
+
+		intakeLow.move_velocity(0); 
+
+		//Score on Low Goal, move to Long
+		Robot.drivePID(-54, 1, 2400); 
+		Robot.turnPID(155, 0.8, 1500);
+
+		Robot.drivePID(-35, 0.9, 1500);
+
+		intakeLow.move_velocity(600); 
+		intakeUp.move_velocity(600);
+		pros::delay(2500); 
+
+		Robot.drivePID(5, 0.2, 1000);
+
+		pros::delay(300);
+
+		//Swing Around
+		right_motor.move_absolute(300, 400);
+	
+		
+		//Score on High Goal
+	
+		
+	
+
+		/*
 		intakeLow.move_velocity(600); 
 
 		Robot.drivePID(7.5, 0.5, 2000);
@@ -129,12 +166,13 @@ void autonomous() {
 		pros::delay(1000);
 
 		Robot.drivePID(-5, 1, 1000); 
-		Robot.drivePID(5, 2, 1000);
+		Robot.drivePID(5, 2, 1000);*/
 	}
 
 	//Mid Goal
 	if (auton == 2)
 	{
+		//You have 8878F's Controller!
 		pros::lcd::set_text(1, "Mid Goal"); 
 
 		intakeLow.move_velocity(600);
@@ -146,8 +184,7 @@ void autonomous() {
 
 		intakeLow.move_velocity(600); 
 
-		Robot.drivePID(9.5, 0.6, 1000);
-		pros::delay(200);
+		//Robot.drivePID(9.5, 0.6, 1000);
 
 		Robot.turnPID(-110, 0.85, 1800);
 
@@ -155,7 +192,7 @@ void autonomous() {
 		Robot.drivePID(-21.5, 0.8, 1000); 
 
 		//Back up a bit, then score
-		Robot.drivePID(3, 0.9, 500); 
+		Robot.drivePID(1.1, 0.9, 500); 
 		pros::delay(300);
 		intakeLow.move_velocity(600); 
 		intakeUp.move_velocity(200); 
@@ -178,12 +215,13 @@ void autonomous() {
 		intakeUp.move_velocity(600); 
 
 		pros::delay(2000); 
-		Robot.drivePID(5, 1, 600); 
+		Robot.drivePID(5, 0.2, 1000); 
 	}
 
 	if (auton == 3)
 	{
-		pros::lcd::set_text(1, "One Block + Park for Skills");
+		//BACKUP SKILLS 
+		/*pros::lcd::set_text(1, "One Block + Park for Skills");
 		Robot.drivePID(40, 0.3, 3500);
 		Robot.turnPID(-90, 0.9, 2000);  
 		Robot.drivePID(-35, 0.6, 1600);
@@ -197,7 +235,59 @@ void autonomous() {
 		Robot.turnPID(10, 0.9, 2000); 
 		Robot.drivePID(-55, 1, 4000);
 		Robot.turnPID(0, 1, 2000); 
-		Robot.drivePID(-85, 1, 6000);
+		Robot.drivePID(-85, 1, 6000);*/
+
+		//You have 8878F's Controller!
+		pros::lcd::set_text(1, "Mid Goal"); 
+
+		intakeLow.move_velocity(600);
+		intakeUp.move_velocity(-100); 
+		Robot.drivePID(19, 0.8, 2300);
+		
+		Robot.drivePID(9.5, 0.5, 2000);
+		pros::delay(250);
+
+
+		intakeLow.move_velocity(600); 
+
+		//Robot.drivePID(9.5, 0.6, 1000);
+
+		Robot.turnPID(-110, 0.85, 1800);
+
+		//Drive towards mid goal
+		Robot.drivePID(-21.5, 0.8, 1000); 
+
+		//Back up a bit, then score
+		Robot.drivePID(1.1, 0.9, 500); 
+		pros::delay(300);
+		intakeLow.move_velocity(600); 
+		intakeUp.move_velocity(500); 
+
+		pros::delay(1000);
+		intakeUp.move_velocity(0);  
+		intakeLow.move_velocity(600); 
+
+		Robot.drivePID(13, 1, 1000); 
+		Robot.turnPID(125, 1, 1300);
+
+		Robot.drivePID(30, 1, 2500);
+		Robot.drivePID(12, 0.6, 1500); 
+
+		//Offset about 33 degrees
+
+		//Going to long goal on other side
+		Robot.turnPID(165, 1, 1500); 
+		Robot.drivePID(35, 1, 1800); 
+
+		//Score on Long Goal
+		Robot.turnPID(210, 1, 1800);
+		Robot.drivePID(-50, 1, 1000); 
+
+		intakeLow.move_velocity(600); 
+		intakeUp.move_velocity(600); 
+
+		pros::delay(7500);
+		Robot.drivePID(5, 0.2, 1000); 
 	}
 
 	if (auton == 4)
