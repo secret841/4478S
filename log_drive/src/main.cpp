@@ -126,12 +126,13 @@ void autonomous() {
 		Robot.turnPID(-75, 0.9, 250);
 		intakeLow.move_velocity(-600);
 
-		//pros::delay(1200); 
+		pros::delay(1800); 
 
-		intakeLow.move_velocity(0); 
+		Robot.drivePID(-5, 1, 500); 
+		intakeLow.move_velocity(600); 
 
 		//Score on Low Goal, move to Long
-		Robot.drivePID(-54, 1, 2400); 
+		Robot.drivePID(-52, 1, 2400); 
 		Robot.turnPID(155, 0.8, 1500);
 
 		Robot.drivePID(-35, 0.9, 1500);
@@ -264,7 +265,7 @@ void autonomous() {
 		intakeUp.move_velocity(500); 
 
 		pros::delay(1000);
-		intakeUp.move_velocity(0);  
+		intakeUp.move_velocity(-50);  
 		intakeLow.move_velocity(600); 
 
 		Robot.drivePID(13, 1, 1000); 
@@ -287,7 +288,15 @@ void autonomous() {
 		intakeUp.move_velocity(600); 
 
 		pros::delay(7500);
+
+		//Back up and Turn to Park
 		Robot.drivePID(5, 0.2, 1000); 
+		Robot.drivePID(15, 1, 1000); 
+		Robot.turnPID(93, 1, 1300);
+		Robot.drivePID(-45, 1, 2800);  
+
+		Robot.turnPID(132, 1, 1200); 
+		Robot.drivePID(-700, 2.5, 5500);
 	}
 
 	if (auton == 4)
@@ -400,7 +409,7 @@ void opcontrol() {
 			moveIntake = false; 
 		}
 		
-
+		//Spin reverse, forward, and not at all respectively
 		if (reverse)
 		{
 			intakeLow.move_velocity(-600); 
