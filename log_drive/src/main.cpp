@@ -11,7 +11,7 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 3; 
+int auton = 1; 
 void on_center_button() {
 	auton++; 
 	
@@ -54,6 +54,9 @@ void initialize() {
 	//Resets motors
 	left_motor.set_zero_position(0); 
 	right_motor.set_zero_position(0); 
+
+	//Puts wing down
+	wing.set_value(true); 
 
 	Inertial.reset();
 
@@ -104,12 +107,14 @@ void autonomous() {
 	/*Robot.turnPID(90, 1, 2000);
 	Robot.turnPID(0, 1, 2000);*/
 
+	//TRUE MAKES WING GO DOWN! wing.set_value(true); 
+
 	//Low Goal
 	if (auton == 1)
 	{
-		//YOU HAVE 8878F's CONTROLLER
 		pros::lcd::set_text(1, "Low Goal"); 
 
+		wing.set_value(false); 
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(-100);
 
@@ -118,35 +123,48 @@ void autonomous() {
 		intakeUp.move_velocity(-50);
 
 		Robot.drivePID(7, 0.75, 800); 
-		Robot.drivePID(10, 1.2,1000); 
-		Robot.turnPID(-70, 1, 1000); 
+		Robot.drivePID(6, 1.2,800); 
+		Robot.turnPID(-70, 1, 900); 
 
 		Robot.drivePID(15, 1, 1000); 
 
 		Robot.turnPID(-75, 0.9, 250);
-		intakeLow.move_velocity(-600);
+		//intakeLow.move_velocity(-600);
 
-		pros::delay(1800); 
-
-		Robot.drivePID(-5, 1, 500); 
+		//pros::delay(200); 
 		intakeLow.move_velocity(600); 
+		Robot.drivePID(-5, 1, 500); 
 
 		//Score on Low Goal, move to Long
-		Robot.drivePID(-52, 1, 2400); 
-		Robot.turnPID(155, 0.8, 1500);
+		Robot.drivePID(-45, 1, 2400); 
+		Robot.turnPID(162, 0.85, 1300);
 
 		Robot.drivePID(-35, 0.9, 1500);
 
+		//Pause to score on long, lifts up hood
+		intakeLift.set_value(true); 
 		intakeLow.move_velocity(600); 
 		intakeUp.move_velocity(600);
-		pros::delay(2500); 
+		pros::delay(1400); 
 
-		Robot.drivePID(5, 0.2, 1000);
+		Robot.drivePID(5, 0.8, 1000);
+		intakeUp.move_velocity(-200);
 
-		pros::delay(300);
+		//Turn for Wing
+			
+		Robot.turnPID(240, 1.2, 400); 
+		Robot.drivePID(15.5, 1.3, 400); 
+		Robot.turnPID(156, 1.8, 600); 
+
+		//Put Down Wing
+		Robot.drivePID(-13, 2, 500); 
+		wing.set_value(true); 
+		Robot.turnPID(145, 2, 400); 
+		Robot.drivePID(-15, 1.2, 800);
+
 
 		//Swing Around
-		right_motor.move_absolute(300, 400);
+		//right_motor.move_absolute(300, 400);
 	
 		
 		//Score on High Goal
@@ -173,7 +191,6 @@ void autonomous() {
 	//Mid Goal
 	if (auton == 2)
 	{
-		//You have 8878F's Controller!
 		pros::lcd::set_text(1, "Mid Goal"); 
 
 		intakeLow.move_velocity(600);
@@ -212,11 +229,12 @@ void autonomous() {
 		Robot.turnPID(-169, 1.2, 900);
 		Robot.drivePID(-18, 1, 1000);
 		
+		intakeLift.set_value(true); 
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(600); 
 
 		pros::delay(2000); 
-		Robot.drivePID(5, 0.2, 1000); 
+		Robot.drivePID(7, 0.4, 1000); 
 	}
 
 	if (auton == 3)
@@ -353,6 +371,8 @@ void opcontrol() {
 	bool reverse = false; 
 	bool noMove = false; 
 	bool latch = false; 
+	bool wingy = true;
+	bool lift = true; 
 
 	intakeLow.move_velocity(0); 
 	while (true) {
@@ -426,7 +446,8 @@ void opcontrol() {
 		//Code for the upper intake
 		if (master.get_digital(DIGITAL_L1))
 		{
-			intakeUp.move_velocity(600); 
+			intakeUp.move_velocity(600);
+			lift = true;  
 		}
 		//Specific for mid-goal
 		else if (master.get_digital(DIGITAL_L2))
@@ -436,6 +457,35 @@ void opcontrol() {
 		else
 		{
 			intakeUp.move_velocity(-50);
+			lift = false; 
+		}
+
+		
+		//Control Wing 
+		if (master.get_digital_new_press(DIGITAL_A))
+		{
+			wingy = !wingy; 
+		}
+		if (wingy)
+		{
+			wing.set_value(true);
+		}
+		else
+		{
+			wing.set_value(false);
+		}
+
+		if (master.get_digital_new_press(DIGITAL_B))
+		{
+			lift = !lift; 
+		}
+		if (lift)
+		{
+			intakeLift.set_value(true);
+		}
+		else
+		{
+			intakeLift.set_value(false);
 		}
 
 
