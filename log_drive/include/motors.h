@@ -11,6 +11,7 @@ pros::Imu Inertial(4);
 
 pros::ADIDigitalOut intakeLift('B');
 pros::ADIDigitalOut wing('A'); 
+pros::ADIDigitalOut matchLoader('F'); 
 
 pros::Motor intakeLow(3, pros::MotorGearset::blue); 
 pros::Motor intakeUp(-5, pros::MotorGearset::blue);

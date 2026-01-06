@@ -256,7 +256,6 @@ void autonomous() {
 		Robot.turnPID(0, 1, 2000); 
 		Robot.drivePID(-85, 1, 6000);*/
 
-		//You have 8878F's Controller!
 		pros::lcd::set_text(1, "Mid Goal"); 
 
 		intakeLow.move_velocity(600);
@@ -367,6 +366,7 @@ void autonomous() {
  */
 void opcontrol() {
 	double left, right; 
+	bool matchLoad = false; 
 	bool moveIntake = false;
 	bool reverse = false; 
 	bool noMove = false; 
@@ -488,6 +488,19 @@ void opcontrol() {
 			intakeLift.set_value(false);
 		}
 
+		if (master.get_digital_new_press(DIGITAL_UP))
+		{
+			matchLoad = !matchLoad; 
+		}
+		if (matchLoad)
+		{
+			matchLoader.set_value(true); 
+		}
+		else
+		{
+			matchLoader.set_value(false); 
+		}
+		
 
 		
 		
