@@ -75,7 +75,7 @@ void defineRobot::drivePID(double inches, double velocit, int waitTime)
     double derivative = 0;  
     double prevError = 0; 
 
-    double slew = 100;
+    double slew = 15;
     int currWait = 0; 
 
  

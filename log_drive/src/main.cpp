@@ -3,6 +3,11 @@
 #include "motors.h"
 #include "robo_class.h"
 #include "functions.h"
+#include "routes/lowgoal.h"
+#include "routes/midgoal.h"
+#include "routes/skills.h"
+#include "routes/midgoalcoward.h"
+#include "routes/lowgoalcoward.h"
 
 
 /**
@@ -11,7 +16,7 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 1; 
+int auton = 4; 
 void on_center_button() {
 	auton++; 
 	
@@ -30,11 +35,11 @@ void on_center_button() {
 	}
 	else if (auton == 4)
 	{
-		pros::lcd::set_text(2, "One Block Long Goal (Mid Goal Side)"); 
+		pros::lcd::set_text(2, "Mid Goal Coward"); 
 	}
 	else if (auton == 5)
 	{
-		pros::lcd::set_text(2, "One Block Long Goal (Low Goal Side)"); 
+		pros::lcd::set_text(2, "Low Goal Coward"); 
 	}
 	else
 	{
@@ -57,6 +62,7 @@ void initialize() {
 
 	//Puts wing down
 	wing.set_value(true); 
+	matchLoader.set_value(true);
 
 	Inertial.reset();
 
@@ -97,15 +103,10 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	defineRobot Robot = defineRobot("4478S"); 
+	//defineRobot Robot = defineRobot("4478S"); 
 	
 	//First three are drivePID, next three are turnPID
-	Robot.setPID(1.1, 0, 0.56, 2.9, 0, 0.6); 
-	 
-	/*Robot.drivePID(20, 1, 2000);
-	Robot.drivePID(-15, 0.8, 2000);*/
-	/*Robot.turnPID(90, 1, 2000);
-	Robot.turnPID(0, 1, 2000);*/
+	//Robot.setPID(1.1, 0, 0.56, 2.9, 0, 0.9); 
 
 	//TRUE MAKES WING GO DOWN! wing.set_value(true); 
 
@@ -113,79 +114,7 @@ void autonomous() {
 	if (auton == 1)
 	{
 		pros::lcd::set_text(1, "Low Goal"); 
-
-		wing.set_value(false); 
-		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(-100);
-
-		Robot.drivePID(15, 1, 1500);
-		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(-50);
-
-		Robot.drivePID(7, 0.75, 800); 
-		Robot.drivePID(6, 1.2,800); 
-		Robot.turnPID(-70, 1, 900); 
-
-		Robot.drivePID(15, 1, 1000); 
-
-		Robot.turnPID(-75, 0.9, 250);
-		//intakeLow.move_velocity(-600);
-
-		//pros::delay(200); 
-		intakeLow.move_velocity(600); 
-		Robot.drivePID(-5, 1, 500); 
-
-		//Score on Low Goal, move to Long
-		Robot.drivePID(-45, 1, 2400); 
-		Robot.turnPID(162, 0.85, 1300);
-
-		Robot.drivePID(-35, 0.9, 1500);
-
-		//Pause to score on long, lifts up hood
-		intakeLift.set_value(true); 
-		intakeLow.move_velocity(600); 
-		intakeUp.move_velocity(600);
-		pros::delay(1400); 
-
-		Robot.drivePID(5, 0.8, 1000);
-		intakeUp.move_velocity(-200);
-
-		//Turn for Wing
-			
-		Robot.turnPID(240, 1.2, 400); 
-		Robot.drivePID(15.5, 1.3, 400); 
-		Robot.turnPID(156, 1.8, 600); 
-
-		//Put Down Wing
-		Robot.drivePID(-13, 2, 500); 
-		wing.set_value(true); 
-		Robot.turnPID(145, 2, 400); 
-		Robot.drivePID(-15, 1.2, 800);
-
-
-		//Swing Around
-		//right_motor.move_absolute(300, 400);
-	
-		
-		//Score on High Goal
-	
-		
-	
-
-		/*
-		intakeLow.move_velocity(600); 
-
-		Robot.drivePID(7.5, 0.5, 2000);
-
-		Robot.turnPID(-55, 1, 1500);
-
-		Robot.drivePID(20, 1, 1000); 
-		intakeLow.move_velocity(-600);
-		
-		pros::delay(1000);
-
-		Robot.drivePID(-5, 1, 1000); 
-		Robot.drivePID(5, 2, 1000);*/
+		lowgoal(); 	
 	}
 
 	//Mid Goal
@@ -193,155 +122,27 @@ void autonomous() {
 	{
 		pros::lcd::set_text(1, "Mid Goal"); 
 
-		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(-100); 
-		Robot.drivePID(19, 0.8, 2300);
-		
-		Robot.drivePID(9.5, 0.5, 2000);
-		pros::delay(250);
-
-		intakeLow.move_velocity(600); 
-
-		//Robot.drivePID(9.5, 0.6, 1000);
-
-		Robot.turnPID(-110, 0.85, 1800);
-
-		//Drive towards mid goal
-		Robot.drivePID(-21.5, 0.8, 1000); 
-
-		//Back up a bit, then score
-		Robot.drivePID(1.1, 0.9, 500); 
-		pros::delay(300);
-		intakeLow.move_velocity(600); 
-		intakeUp.move_velocity(200); 
-
-		pros::delay(800);
-		intakeUp.move_velocity(0);  
-		intakeLow.move_velocity(600); 
-
-		//Drive back a bit, readjust angle, then drive more
-		Robot.drivePID(18, 1, 900);
-		Robot.turnPID(-100, 1, 800);
-
-		Robot.drivePID(28.5, 1.2, 1800);
-
-		//Turn to long goal and score
-		Robot.turnPID(-169, 1.2, 900);
-		Robot.drivePID(-18, 1, 1000);
-		
-		intakeLift.set_value(true); 
-		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(600); 
-
-		pros::delay(2000); 
-		Robot.drivePID(7, 0.4, 1000); 
+		midgoal(); 
 	}
 
 	if (auton == 3)
 	{
-		//BACKUP SKILLS 
-		/*pros::lcd::set_text(1, "One Block + Park for Skills");
-		Robot.drivePID(40, 0.3, 3500);
-		Robot.turnPID(-90, 0.9, 2000);  
-		Robot.drivePID(-35, 0.6, 1600);
+		pros::lcd::set_text(1, "Skills Auton"); 
 
-		intakeLow.move_velocity(600); 
-		intakeUp.move_velocity(600);
-
-		pros::delay(10000); 
-
-		Robot.drivePID(30, 0.5, 3000);
-		Robot.turnPID(10, 0.9, 2000); 
-		Robot.drivePID(-55, 1, 4000);
-		Robot.turnPID(0, 1, 2000); 
-		Robot.drivePID(-85, 1, 6000);*/
-
-		pros::lcd::set_text(1, "Mid Goal"); 
-
-		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(-100); 
-		Robot.drivePID(19, 0.8, 2300);
-		
-		Robot.drivePID(9.5, 0.5, 2000);
-		pros::delay(250);
-
-
-		intakeLow.move_velocity(600); 
-
-		//Robot.drivePID(9.5, 0.6, 1000);
-
-		Robot.turnPID(-110, 0.85, 1800);
-
-		//Drive towards mid goal
-		Robot.drivePID(-21.5, 0.8, 1000); 
-
-		//Back up a bit, then score
-		Robot.drivePID(1.1, 0.9, 500); 
-		pros::delay(300);
-		intakeLow.move_velocity(600); 
-		intakeUp.move_velocity(500); 
-
-		pros::delay(1000);
-		intakeUp.move_velocity(-50);  
-		intakeLow.move_velocity(600); 
-
-		Robot.drivePID(13, 1, 1000); 
-		Robot.turnPID(125, 1, 1300);
-
-		Robot.drivePID(30, 1, 2500);
-		Robot.drivePID(12, 0.6, 1500); 
-
-		//Offset about 33 degrees
-
-		//Going to long goal on other side
-		Robot.turnPID(165, 1, 1500); 
-		Robot.drivePID(35, 1, 1800); 
-
-		//Score on Long Goal
-		Robot.turnPID(210, 1, 1800);
-		Robot.drivePID(-50, 1, 1000); 
-
-		intakeLow.move_velocity(600); 
-		intakeUp.move_velocity(600); 
-
-		pros::delay(7500);
-
-		//Back up and Turn to Park
-		Robot.drivePID(5, 0.2, 1000); 
-		Robot.drivePID(15, 1, 1000); 
-		Robot.turnPID(93, 1, 1300);
-		Robot.drivePID(-45, 1, 2800);  
-
-		Robot.turnPID(132, 1, 1200); 
-		Robot.drivePID(-700, 2.5, 5500);
+		skills();
 	}
 
 	if (auton == 4)
 	{
-		pros::lcd::set_text(1, "One Block Long Goal Auto (Mid Goal Side)");
-
-		//Drive, Turn, Drive towards Long Goal
-		Robot.drivePID(40, 0.3, 3500);
-		Robot.turnPID(-90, 0.9, 2000);  
-		Robot.drivePID(-35, 0.6, 1600);
-
-		//Outtake
-		intakeLow.move_velocity(600); 
-		intakeUp.move_velocity(600);
-
-		pros::delay(3000); 
-		Robot.drivePID(10, 0.5, 1000);
+		pros::lcd::set_text(1, "Mid Goal Coward");
+		pros::lcd::print(2, "%.2f", Inertial.get_heading());
+		midgoalcoward(); 
 	}
 
 	if (auton == 5)
 	{
-		pros::lcd::set_text(1, "One Block Long Goal Auto (Low Goal Side)");
-		Robot.drivePID(40, 0.3, 3500);
-		Robot.turnPID(90, 0.9, 2000);  
-		Robot.drivePID(-35, 0.6, 1600);
-
-		intakeLow.move_velocity(600); 
-		intakeUp.move_velocity(600);
+		pros::lcd::set_text(1, "Low Goal Coward");
+		lowGoalCoward(); 
 	}
 	 
 	//Robot.drivePID(-10, 1, 2000);
@@ -488,19 +289,20 @@ void opcontrol() {
 			intakeLift.set_value(false);
 		}
 
+
 		if (master.get_digital_new_press(DIGITAL_UP))
 		{
 			matchLoad = !matchLoad; 
 		}
 		if (matchLoad)
 		{
-			matchLoader.set_value(true); 
+			matchLoader.set_value(true);
 		}
 		else
 		{
-			matchLoader.set_value(false); 
+			matchLoader.set_value(false);
 		}
-		
+
 
 		
 		
