@@ -16,7 +16,7 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 4; 
+int auton = 2; 
 void on_center_button() {
 	auton++; 
 	
