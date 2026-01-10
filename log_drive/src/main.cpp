@@ -16,7 +16,7 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 2; 
+int auton = 4; 
 void on_center_button() {
 	auton++; 
 	
@@ -61,8 +61,8 @@ void initialize() {
 	right_motor.set_zero_position(0); 
 
 	//Puts wing down
-	wing.set_value(true); 
-	matchLoader.set_value(true);
+	wing.set_value(false); 
+	matchLoader.set_value(false);
 
 	Inertial.reset();
 

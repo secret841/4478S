@@ -14,7 +14,7 @@ void midgoalcoward()
 
 		Robot.drivePID(34.5, 1, 1500); 
 		Robot.turnPID(-92, 1, 1000); //-92 Degrees
-		matchLoader.set_value(false); //Puts matchloader down
+		matchLoader.set_value(true); //Puts matchloader down
 		pros::delay(220); 
 
 		intakeLow.move_velocity(600); //Turn on intake(s)
@@ -39,8 +39,9 @@ void midgoalcoward()
 		pros::delay(1200); 
 		intakeUp.move_velocity(-100);
 
-		matchLoader.set_value(true);
+		matchLoader.set_value(false);
 
+		pros::delay(400);
 		Robot.drivePID(6, 1.5, 500);
 		Robot.turnPID(-15, 1.5, 800); //+90 Degrees
 		Robot.drivePID(15, 1, 950);
