@@ -16,7 +16,7 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 4; 
+int auton = 2; 
 void on_center_button() {
 	auton++; 
 	
@@ -31,7 +31,7 @@ void on_center_button() {
 	}
 	else if (auton == 3)
 	{
-		pros::lcd::set_text(2, "Skills Auton (One Block + Park)"); 
+		pros::lcd::set_text(2, "Skills Auton"); 
 	}
 	else if (auton == 4)
 	{
@@ -62,7 +62,7 @@ void initialize() {
 
 	//Puts wing down
 	wing.set_value(false); 
-	matchLoader.set_value(false);
+	matchLoader.set_value(true);
 
 	Inertial.reset();
 
@@ -276,10 +276,6 @@ void opcontrol() {
 			wing.set_value(false);
 		}
 
-		if (master.get_digital_new_press(DIGITAL_B))
-		{
-			lift = !lift; 
-		}
 		if (lift)
 		{
 			intakeLift.set_value(true);

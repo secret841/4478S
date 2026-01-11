@@ -8,65 +8,48 @@
 void skills()
 {
 
-    defineRobot Robot = defineRobot("4478S"); 
+     defineRobot Robot = defineRobot("4478S"); 
 	
 	//First three are drivePID, next three are turnPID
 	Robot.setPID(1.1, 0, 0.56, 2.9, 0, 0.9); 
+    //Mid Goal Coward - Start = 270 Degrees
 
-        intakeLow.move_velocity(600);
-		intakeUp.move_velocity(-100); 
-		Robot.drivePID(19, 0.8, 2300);
-		
-		Robot.drivePID(9.5, 0.5, 2000);
-		pros::delay(250);
+		Robot.drivePID(34.5, 1, 1500); 
+		Robot.turnPID(-92, 1, 1000); //-92 Degrees
+		matchLoader.set_value(false); //Puts matchloader down
+		pros::delay(500); 
 
+		intakeLow.move_velocity(600); //Turn on intake(s)
+		intakeUp.move_velocity(-100);
 
-		intakeLow.move_velocity(600); 
+		Robot.drivePID(9.5, 0.9, 1000); //Drive to loader
+		 
+		Robot.drivePID(-2, 1, 200); //Drive Back a bit
+		//Wiggle
+		Robot.drivePID(4.5, 0.4, 400); 
+		Robot.drivePID(4.5, 0.4, 400);
+		Robot.drivePID(4.5, 0.4, 400);
 
-		//Robot.drivePID(9.5, 0.6, 1000);
+		pros::delay(2500); 
 
-		Robot.turnPID(-110, 0.85, 1800);
+		//Drive Back and then realign
+		Robot.drivePID(-5, 1.5, 500); 
+		matchLoader.set_value(true);
+		Robot.turnPID(-100, 1, 200); //-15 Degrees
+		Robot.drivePID(-32, 1.3, 1500);
 
-		//Drive towards mid goal
-		Robot.drivePID(-21.5, 0.8, 1000); 
-
-		//Back up a bit, then score
-		Robot.drivePID(1.1, 0.9, 500); 
-		pros::delay(300);
-		intakeLow.move_velocity(600); 
-		intakeUp.move_velocity(500); 
-
-		pros::delay(1000);
-		intakeUp.move_velocity(-50);  
-		intakeLow.move_velocity(600); 
-
-		Robot.drivePID(13, 1, 1000); 
-		Robot.turnPID(125, 1, 1300);
-
-		Robot.drivePID(30, 1, 2500);
-		Robot.drivePID(12, 0.6, 1500); 
-
-		//Offset about 33 degrees
-
-		//Going to long goal on other side
-		Robot.turnPID(165, 1, 1500); 
-		Robot.drivePID(35, 1, 1800); 
-
-		//Score on Long Goal
-		Robot.turnPID(210, 1, 1800);
-		Robot.drivePID(-50, 1, 1000); 
-
-		intakeLow.move_velocity(600); 
+		intakeLift.set_value(true);
 		intakeUp.move_velocity(600); 
+		pros::delay(4000); 
+		intakeUp.move_velocity(-100);
 
-		pros::delay(7500);
+		intakeLift.set_value(false);
 
-		//Back up and Turn to Park
-		Robot.drivePID(5, 0.2, 1000); 
-		Robot.drivePID(15, 1, 1000); 
-		Robot.turnPID(93, 1, 1300);
-		Robot.drivePID(-45, 1, 2800);  
+		Robot.drivePID(16.5, 1.3, 1000);
+		Robot.turnPID(25, 1.1, 1100); //+90 Degrees
+		Robot.drivePID(-14, 1, 1000);
 
-		Robot.turnPID(132, 1, 1200); 
-		Robot.drivePID(-700, 2.5, 5500);
+		Robot.turnPID(0, 1, 1000); 
+		Robot.drivePID(-50, 1, 2000);
+
 }
