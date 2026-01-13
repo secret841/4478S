@@ -18,6 +18,7 @@ class defineRobot {
         void setPID(double p, double i, double d, double tP, double tI, double tD); 
         void drivePID(double inches, double velocit, int waitTime); 
         void turnPID(double heading, double velocit, int waitTime); 
+        void turnToGoal(double distBound, double targetDist);
 };
 
 void defineRobot::setPID(double p, double i, double d, double tP, double tI, double tD)
@@ -118,6 +119,31 @@ void defineRobot::drivePID(double inches, double velocit, int waitTime)
     return;
 }
 
+void defineRobot::turnToGoal(double distBound, double targetDist) {
+
+    double currDist = distanceSensor.get_distance(); //get current distance sensor read (mm)
+    double error = currDist - targetDist; // get error from target distance
+    
+    while (fabs(error) > distBound) {
+
+        if (error > 0) { //turn right if the desired depth is greater than current depth
+            left_motor.move_velocity(10); 
+            right_motor.move_velocity(-10); 
+        }
+        else { //turn left if the desired depth is less than current depth
+            left_motor.move_velocity(-10);
+            right_motor.move_velocity(10); 
+        }
+
+        pros::delay(20);
+
+        currDist = distanceSensor.get_distance();
+
+        error = currDist - targetDist; //calculate new error, this needs to be at the end so as to not overshoot   
+    }
+    left_motor.move_velocity(0); //stop motors to ensure distance.
+    right_motor.move_velocity(0); 
+}
 
 
 
