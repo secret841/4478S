@@ -17,6 +17,7 @@
  * "I was pressed!" and nothing.
  */
 int auton = 2; 
+
 void on_center_button() {
 	auton++; 
 	
@@ -115,6 +116,7 @@ void autonomous() {
 	{
 		pros::lcd::set_text(1, "Low Goal"); 
 		lowgoal(); 	
+		
 	}
 
 	//Mid Goal
@@ -192,8 +194,9 @@ void opcontrol() {
 			if (right < 0)
 				rightLog = -rightLog; 
 		
-			left_motor.move(leftLog); 
-			right_motor.move(rightLog); 
+			/*left_motor.move(leftLog); 
+			right_motor.move(rightLog); */
+			driveControl_PIDR(rightLog);
 		}
 		else
 		{
@@ -219,6 +222,7 @@ void opcontrol() {
 		*/
 		
 		//Intake Toggle
+		/*
 		if (master.get_digital_new_press(DIGITAL_R1))
 		{
 			moveIntake = !moveIntake; 
@@ -242,6 +246,20 @@ void opcontrol() {
 		else
 		{
 			intakeLow.move_velocity(0); 
+		}*/
+
+		//Old/New Intake Controller
+		if (master.get_digital(DIGITAL_R1)) {
+			
+			intakeLow.move_velocity(600);
+
+		} else if (master.get_digital(DIGITAL_R2)) {
+
+			intakeLow.move_velocity(-600);
+
+		} else {
+
+			intakeLow.move_velocity(0);
 		}
 
 		//Code for the upper intake
@@ -263,7 +281,7 @@ void opcontrol() {
 
 		
 		//Control Wing 
-		if (master.get_digital_new_press(DIGITAL_A))
+		if (master.get_digital_new_press(DIGITAL_B))
 		{
 			wingy = !wingy; 
 		}
@@ -286,7 +304,7 @@ void opcontrol() {
 		}
 
 
-		if (master.get_digital_new_press(DIGITAL_UP))
+		if (master.get_digital_new_press(DIGITAL_DOWN))
 		{
 			matchLoad = !matchLoad; 
 		}
