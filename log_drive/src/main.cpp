@@ -17,6 +17,7 @@
  * "I was pressed!" and nothing.
  */
 int auton = 2; 
+
 void on_center_button() {
 	auton++; 
 	
@@ -115,6 +116,7 @@ void autonomous() {
 	{
 		pros::lcd::set_text(1, "Low Goal"); 
 		lowgoal(); 	
+		
 	}
 
 	//Mid Goal
@@ -192,8 +194,9 @@ void opcontrol() {
 			if (right < 0)
 				rightLog = -rightLog; 
 		
-			left_motor.move(leftLog); 
-			right_motor.move(rightLog); 
+			/*left_motor.move(leftLog); 
+			right_motor.move(rightLog); */
+			driveControl_PIDR(rightLog);
 		}
 		else
 		{

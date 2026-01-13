@@ -7,7 +7,16 @@
 class defineRobot {
     private:
         double kP, kI, kD;
-        double tKP, tKI, tKD;  
+        double tKP, tKI, tKD; 
+
+        double driveKP, driveKI, driveKD;
+
+        double prevPosDriverControlR = 0; 
+        double prevPosDriverControlL = 0; 
+
+        double prevErrorDriverControlR = 0; 
+        double prevErrorDriverControlL = 0; 
+
         std::string robotName; 
     public:
         defineRobot(std::string name)
@@ -15,19 +24,24 @@ class defineRobot {
             robotName = name; 
         }
         std::string returnName(); 
-        void setPID(double p, double i, double d, double tP, double tI, double tD); 
+        void setPID(double p, double i, double d, double tP, double tI, double tD, double driveP, double driveI, double driveD); 
         void drivePID(double inches, double velocit, int waitTime); 
         void turnPID(double heading, double velocit, int waitTime); 
+        void driveControl_PIDR(double speed); 
+        void driveControl_PIDL(double speed); 
 };
 
-void defineRobot::setPID(double p, double i, double d, double tP, double tI, double tD)
+void defineRobot::setPID(double p, double i, double d, double tP, double tI, double tD, double driveP, double driveI, double driveD)
 {
     kP = p; 
     kI = i;
     kD = d; 
     tKP = tP;
     tKI = tI; 
-    tKD = tD; 
+    tKD = tD;
+    driveKP = driveP;
+    driveKI = driveI; 
+    driveKD = driveD;  
 }
 
 std::string defineRobot::returnName()
@@ -118,7 +132,49 @@ void defineRobot::drivePID(double inches, double velocit, int waitTime)
     return;
 }
 
+void defineRobot::driveControl_PIDR(double speed)
+{
+    //Initialize a million different variables
+    
+    double error = 10;
+    double currentPos = right_motor.get_position();  
+    double currentVelocity = (currentPos - prevPosDriverControlR) / 20 / 360 * 1000 * 60;
+    double derivative = 0; 
 
+    error = currentVelocity - speed; 
 
+    derivative = error - prevErrorDriverControlR; 
 
+    //Calculate power and then move robot
+    double power = (error * driveKP) + (derivative * driveKD);
+
+    right_motor.move_velocity(power); 
+
+    prevPosDriverControlR = currentPos;
+
+    return;
+}
+
+void defineRobot::driveControl_PIDL(double speed)
+{
+    //Initialize a million different variables
+    
+    double error = 10;
+    double currentPos = right_motor.get_position();  
+    double currentVelocity = (currentPos - prevPosDriverControlL) / 20 / 360 * 1000 * 60;
+    double derivative = 0; 
+
+    error = currentVelocity - speed; 
+
+    derivative = error - prevErrorDriverControlL; 
+
+    //Calculate power and then move robot
+    double power = (error * driveKP) + (derivative * driveKD);
+
+    right_motor.move_velocity(power); 
+
+    prevPosDriverControlL = currentPos;
+
+    return;
+}
 
