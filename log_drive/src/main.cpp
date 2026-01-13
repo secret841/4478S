@@ -191,6 +191,22 @@ void opcontrol() {
 				leftLog = -leftLog;
 			if (right < 0)
 				rightLog = -rightLog; 
+
+			//Making one side slightly slower using this awful log function
+			//Happens at specific speed and same speed
+			if (fabs(leftLog) >= 95 && fabs(rightLog) >= 95 && (leftLog/rightLog) > 0)
+			{
+				double factor = 13.5 + log(0.8 * (rightLog - 95) * (rightLog - 95)); 
+				if (rightLog > 0)
+				{
+					rightLog -= factor; 
+				}
+				else
+				{
+					rightLog += factor;
+				}
+				
+			}
 		
 			left_motor.move(leftLog); 
 			right_motor.move(rightLog); 
@@ -217,27 +233,15 @@ void opcontrol() {
 				intakeLow.move_velocity(0); 
 			}
 		*/
-		
-		//Intake Toggle
-		if (master.get_digital_new_press(DIGITAL_R1))
-		{
-			moveIntake = !moveIntake; 
-			reverse = false; 
-		}
-		if (master.get_digital_new_press(DIGITAL_R2))
-		{
-			reverse = !reverse; 
-			moveIntake = false; 
-		}
-		
+	
 		//Spin reverse, forward, and not at all respectively
-		if (reverse)
-		{
-			intakeLow.move_velocity(-600); 
-		}
-		else if (moveIntake)
+		if (master.get_digital(DIGITAL_R1))
 		{
 			intakeLow.move_velocity(600); 
+		}
+		else if (master.get_digital(DIGITAL_R2))
+		{
+			intakeLow.move_velocity(-600); 
 		}
 		else
 		{
@@ -250,11 +254,6 @@ void opcontrol() {
 			intakeUp.move_velocity(600);
 			lift = true;  
 		}
-		//Specific for mid-goal
-		else if (master.get_digital(DIGITAL_L2))
-		{
-			intakeUp.move_velocity(150); 
-		}
 		else
 		{
 			intakeUp.move_velocity(-50);
@@ -263,7 +262,7 @@ void opcontrol() {
 
 		
 		//Control Wing 
-		if (master.get_digital_new_press(DIGITAL_A))
+		if (master.get_digital_new_press(DIGITAL_L2))
 		{
 			wingy = !wingy; 
 		}
@@ -298,7 +297,6 @@ void opcontrol() {
 		{
 			matchLoader.set_value(false);
 		}
-
 
 		
 		
