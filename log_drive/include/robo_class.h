@@ -18,6 +18,7 @@ class defineRobot {
         void setPID(double p, double i, double d, double tP, double tI, double tD); 
         void drivePID(double inches, double velocit, int waitTime); 
         void turnPID(double heading, double velocit, int waitTime); 
+        void swingPID(double heading, double velocit, int waitTime);
 };
 
 void defineRobot::setPID(double p, double i, double d, double tP, double tI, double tD)
@@ -50,6 +51,36 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
 
         left_motor.move_velocity(power); 
         right_motor.move_velocity(-power); 
+
+        derivative = error - prevError; 
+        prevError = error; 
+
+        //Keeps robot from self-destructing
+        currWait += 20;
+        pros::delay(20); 
+        pros::lcd::set_text(1, std::to_string(error)); 
+    }
+    left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
+    left_motor.move_velocity(0);
+    right_motor.move_velocity(0); 
+}
+
+//Only right swing at the moment
+void defineRobot::swingPID(double heading, double velocit, int waitTime)
+{
+    int currWait = 0;
+    double error = heading - Inertial.get_rotation(); 
+     pros::lcd::set_text(2, "Original Error " + std::to_string(error)); 
+    double derivative = 0;
+    double prevError = 0;
+    
+    while (fabs(error) >= 0.1 && currWait <= waitTime)
+    {
+        error = heading - Inertial.get_rotation();
+        double power = (error * tKP) + (derivative * tKD); 
+
+        right_motor.move_velocity(power); 
 
         derivative = error - prevError; 
         prevError = error; 
