@@ -39,7 +39,7 @@ void midgoal()
 		Robot.drivePID(3, 0.5, 300); 
 		Robot.drivePID(3, 0.5, 300);
 
-		//pros::delay(150); 
+		pros::delay(150); 
 		Robot.drivePID(-5, 0.5, 200); //Drive Back
 
 		Robot.turnPID(-158, 1, 400);//-5 Degrees
@@ -55,10 +55,10 @@ void midgoal()
 
 		pros::delay(2000); 
 		wing.set_value(true); //Wing up
+		intakeLift.set_value(false);
 
-		Robot.drivePID(5, 1, 600); 
-		Robot.drivePID(-15, 1, 600); 
-
+		Robot.drivePID(2, 1, 300); 
+		Robot.drivePID(-20, 2, 500);
 		/*Robot.drivePID(5, 1, 200);
 		
 		Robot.turnPID(-81, 1.5, 750);
