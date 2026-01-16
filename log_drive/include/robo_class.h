@@ -80,7 +80,8 @@ void defineRobot::swingPID(double heading, double velocit, int waitTime)
         error = heading - Inertial.get_rotation();
         double power = (error * tKP) + (derivative * tKD); 
 
-        right_motor.move_velocity(power); 
+        right_motor.move_velocity(power);
+        left_motor.move_velocity(-power/2);  
 
         derivative = error - prevError; 
         prevError = error; 

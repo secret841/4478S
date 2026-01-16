@@ -8,7 +8,7 @@
 #include "routes/skills.h"
 #include "routes/midgoalcoward.h"
 #include "routes/lowgoalcoward.h"
-
+#include "routes/blankauto.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -41,6 +41,10 @@ void on_center_button() {
 	{
 		pros::lcd::set_text(2, "Low Goal Coward"); 
 	}
+	else if (auton == 6)
+	{
+		pros::lcd::set_text(2, "Blank Auton for teammates with solo awp");
+	}
 	else
 	{
 		pros::lcd::clear_line(2);
@@ -60,12 +64,15 @@ void initialize() {
 	left_motor.set_zero_position(0); 
 	right_motor.set_zero_position(0); 
 
-	//Puts wing down
-	wing.set_value(false); 
-	matchLoader.set_value(true);
+	//Puts wing down + matchloader up
+	 
+	matchLoader.set_value(false);
+	mLoad.set_value(true); 
 
 	Inertial.reset();
 
+	wing.set_value(true);
+	
 
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
@@ -144,6 +151,12 @@ void autonomous() {
 		pros::lcd::set_text(1, "Low Goal Coward");
 		lowGoalCoward(); 
 	}
+
+	if (auton == 6)
+	{
+		pros::lcd::set_text(1, "BLANK AUTON FOR TEAMMATES WITH SOLO AWP");
+		blankauto(); 
+	}
 	 
 	//Robot.drivePID(-10, 1, 2000);
 	
@@ -177,6 +190,7 @@ void opcontrol() {
 
 	intakeLow.move_velocity(0); 
 	while (true) {
+
 		//Log Drive
 		left = master.get_analog(ANALOG_LEFT_Y); 
 		right = master.get_analog(ANALOG_RIGHT_Y);
@@ -207,9 +221,18 @@ void opcontrol() {
 				}
 				
 			}
+
+			if ((leftLog/rightLog) < 0)
+			{
+				left_motor.move(left); 
+				right_motor.move(right);
+			}
+			else
+			{
+				left_motor.move(leftLog); 
+				right_motor.move(rightLog); 
+			}
 		
-			left_motor.move(leftLog); 
-			right_motor.move(rightLog); 
 		}
 		else
 		{
@@ -292,10 +315,12 @@ void opcontrol() {
 		if (matchLoad)
 		{
 			matchLoader.set_value(true);
+			mLoad.set_value(false);
 		}
 		else
 		{
 			matchLoader.set_value(false);
+			mLoad.set_value(true);
 		}
 
 		
