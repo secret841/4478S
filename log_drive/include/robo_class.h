@@ -127,8 +127,25 @@ void defineRobot::drivePID(double inches, double velocit, int waitTime)
         {
             power < 0 ? power = -slew: power = slew; 
         }
+
+            double factor = 20 + 5.2 * log((power - 100) * (power - 100)); 
+    //Manual power adjust
+    if (power < -500)
+    {
         left_motor.move_velocity(power); 
+        right_motor.move_velocity(power + factor); 
+    }
+    else if (power > 500)
+    {
+         left_motor.move_velocity(power); 
+        right_motor.move_velocity(power - factor); 
+    }
+    else
+    {
+         left_motor.move_velocity(power); 
         right_motor.move_velocity(power); 
+    }
+        
 
         //Get change in error
        
