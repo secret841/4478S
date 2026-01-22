@@ -15,6 +15,7 @@ void lowGoalCoward()
 	Robot.drivePID(34.5, 1, 1500); 
 		Robot.turnPID(92, 1, 1000); //+92 Degrees
 		matchLoader.set_value(true); //Puts matchloader down
+		mLoad.set_value(false); 
 		pros::delay(300); 
 
 		intakeLow.move_velocity(600); //Turn on intake(s)
@@ -27,27 +28,29 @@ void lowGoalCoward()
 		Robot.drivePID(3, 0.4, 400); 
 		Robot.drivePID(3, 0.4, 400);
 
-		pros::delay(400); 
+		pros::delay(300); 
 
 		//Drive Back and then realign
 		Robot.drivePID(-5, 1.5, 500); 
-		Robot.turnPID(88, 1, 1200); //-4 Degrees
-		Robot.drivePID(-32, 1.1, 1500);
+		Robot.turnPID(88, 1, 600); //-4 Degrees
+		Robot.drivePID(-32, 1.1, 1200);
 
 		intakeLift.set_value(true);
+			matchLoader.set_value(false);
+			mLoad.set_value(true); 
 		intakeUp.move_velocity(600); 
 		pros::delay(1200); 
 		intakeUp.move_velocity(-100);
 
-		matchLoader.set_value(false);
+	
 
 		Robot.drivePID(6, 1.5, 500);
 		Robot.turnPID(17, 1.5, 800); //-90 Degrees
-		Robot.drivePID(14, 1, 650);
-		Robot.turnPID(-82, 1.2, 900);  //-99 Degrees
+		Robot.drivePID(14, 1, 550);
+		Robot.turnPID(-78, 1.2, 900);  //-99 Degrees
 
-		wing.set_value(true); //Wing Up
+		wing.set_value(false); //Wing Up
 		Robot.drivePID(20, 2.5, 500);
-		wing.set_value(false); //Wing Down
-		Robot.drivePID(16.5, 2.2, 650); //RAAAAM
+		wing.set_value(true); //Wing Down
+		Robot.drivePID(19.5, 2.2, 650); //RAAAAM
 }

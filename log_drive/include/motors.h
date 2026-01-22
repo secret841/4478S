@@ -10,6 +10,7 @@ pros::MotorGroup right_motor({1, 14, 12}, pros::MotorGearset::blue);
 pros::Imu Inertial(4);
 
 pros::ADIDigitalOut intakeLift('B');
+pros::ADIDigitalOut intakeLift2('C'); 
 pros::ADIDigitalOut wing('A'); 
 
 
