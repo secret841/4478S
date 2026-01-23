@@ -16,7 +16,7 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 5; 
+int auton = 3; 
 void on_center_button() {
 	auton++; 
 	
@@ -28,7 +28,7 @@ void on_center_button() {
 	else if (auton == 2)
 	{
 		pros::lcd::set_text(2, "Main Mid Goal Auton");
-	}
+	}  
 	else if (auton == 3)
 	{
 		pros::lcd::set_text(2, "Skills Auton"); 

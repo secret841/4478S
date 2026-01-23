@@ -28,29 +28,30 @@ void lowGoalCoward()
 		Robot.drivePID(3, 0.4, 400); 
 		Robot.drivePID(3, 0.4, 400);
 
-		pros::delay(300); 
+		pros::delay(100); 
 
 		//Drive Back and then realign
-		Robot.drivePID(-5, 1.5, 500); 
-		Robot.turnPID(88, 1, 600); //-4 Degrees
-		Robot.drivePID(-32, 1.1, 1200);
+		Robot.drivePID(-5, 1.5, 300); 
+		Robot.turnPID(88, 1, 300); //-4 Degrees
+		Robot.drivePID(-32, 1.5, 1000);
 
 		intakeLift.set_value(true);
 			matchLoader.set_value(false);
 			mLoad.set_value(true); 
 		intakeUp.move_velocity(600); 
-		pros::delay(1200); 
+		pros::delay(1300); 
 		intakeUp.move_velocity(-100);
 
 	
 
 		Robot.drivePID(6, 1.5, 500);
 		Robot.turnPID(17, 1.5, 800); //-90 Degrees
-		Robot.drivePID(14, 1, 550);
-		Robot.turnPID(-78, 1.2, 900);  //-99 Degrees
+		Robot.drivePID(12, 1, 550);
+		Robot.turnPID(-85, 1.2, 700);  //-99 Degrees
 
 		wing.set_value(false); //Wing Up
-		Robot.drivePID(20, 2.5, 500);
+		Robot.drivePID(12, 2.5, 500);
+		Robot.turnPID(-93, 1.2, 200);  //-90 Degrees Readjust
 		wing.set_value(true); //Wing Down
-		Robot.drivePID(19.5, 2.2, 650); //RAAAAM
+		Robot.drivePID(8, 2.2, 650); //RAAAAM
 }
