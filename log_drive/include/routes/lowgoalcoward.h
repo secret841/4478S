@@ -46,8 +46,8 @@ void lowGoalCoward()
 
 		Robot.drivePID(6, 1.5, 500);
 		Robot.turnPID(17, 1.5, 800); //-90 Degrees
-		Robot.drivePID(12, 1, 550);
-		Robot.turnPID(-85, 1.2, 700);  //-99 Degrees
+		Robot.drivePID(10.5, 1, 550);
+		Robot.turnPID(-88, 1.2, 850);  //-99 Degrees
 
 		wing.set_value(false); //Wing Up
 		Robot.drivePID(12, 2.5, 500);
