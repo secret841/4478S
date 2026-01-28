@@ -10,9 +10,11 @@ void midgoal()
 	
 	//First three are drivePID, next three are turnPID
 	//Mid Goal Auton - Starts at around 27 Degrees
+	 
 	Robot.setPID(1.1, 0, 0.56, 2.9, 0, 0.9); 
     intakeLow.move_velocity(600);
 		intakeUp.move_velocity(-50);
+		wing.set_value(false); //Wing up 
 		matchLoader.set_value(false); //Puts matchloader up
 		mLoad.set_value(true); 
 
@@ -29,7 +31,8 @@ void midgoal()
 		intakeUp.move_velocity(-120);
 
 		intakeLow.move_velocity(0); 
-		Robot.drivePID(55, 1, 2700); //Turn and drive to loader
+		Robot.drivePID(57, 1, 2800); //Turn and drive to loader
+		pros::delay(200);
 		Robot.turnPID(-159, 1.3, 1100); //-138 Degrees: PLS CHANGE IF IT DOESNT WORK YOU MADE IT MORE NEGATIVE
 
 		intakeLow.move_velocity(600);
@@ -37,17 +40,17 @@ void midgoal()
 		matchLoader.set_value(true); //Puts matchloader down
 		mLoad.set_value(false); 
 		pros::delay(200);
-		Robot.drivePID(16.5, 0.4, 700); //Drive into matchloader
+		Robot.drivePID(21, 0.4, 700); //Drive into matchloader
 
 		Robot.drivePID(-2, 1, 200); //Drive Back a bit
 		//Wiggle
-		Robot.drivePID(3, 0.5, 300); 
+ 		Robot.drivePID(3, 0.5, 300); 
 		Robot.drivePID(5.5, 0.7, 300);
 
 		pros::delay(100); 
 		Robot.drivePID(-5, 0.5, 150); //Drive Back
 
-		Robot.turnPID(-157, 1, 400);//+5 Degrees
+		Robot.turnToGoal(1000);
 
 		
 		Robot.drivePID(-30, 2.5, 900); 
@@ -63,16 +66,16 @@ void midgoal()
 		wing.set_value(true); //Wing Down
 		intakeLift.set_value(false);
 
-		Robot.drivePID(4, 1, 300);
-		Robot.turnPID(-248, 1.6, 700);
-		Robot.drivePID(11.5, 1.5, 400);
+		Robot.drivePID(2, 1, 300);
+		Robot.turnPID(-248, 1.6, 600);
+		Robot.drivePID(12, 1, 700);
 
-		Robot.turnPID(-345, 1.5, 650); 
-		Robot.drivePID(21.5, 1.8, 300);
+		Robot.turnPID(-338, 1.2, 700); 
+		Robot.drivePID(17.5, 1.8, 1050);
 		/*Robot.drivePID(5, 1, 200);
 		
 		Robot.turnPID(-81, 1.5, 750);
-		Robot.drivePID(10.5, 2, 600);
+		Robot.drivePID(10.5, 2, 600)
 
 			Robot.turnPID(-163, 2, 650);
 			Robot.drivePID(-20, 2, 500);

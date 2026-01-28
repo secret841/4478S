@@ -11,9 +11,9 @@ void skills()
 	
 	//First three are drivePID, next three are turnPID
 	Robot.setPID(1.1, 0, 0.56, 2.9, 0, 0.9); 
-    
+    Robot.turnToGoal(100, 100);
 	//Low Goal Coward: Start = 90 Degrees
-	Robot.drivePID(34.5, 1, 1500); 
+	/*Robot.drivePID(34.5, 1, 1500); 
 		Robot.turnPID(92, 1, 1000); //+92 Degrees
 		matchLoader.set_value(true); //Puts matchloader down
 		mLoad.set_value(false); 
@@ -50,6 +50,6 @@ void skills()
 
 		Robot.drivePID(50, 1, 2500); //Drive to other match loader
 		Robot.turnPID(-180, 1, 1000); //Turn 
-		Robot.drivePID(20, 1, 1000);
+		Robot.drivePID(20, 1, 1000);*/
 
 }

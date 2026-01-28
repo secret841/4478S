@@ -60,6 +60,10 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	while(Inertial.is_calibrating())
+	{
+		pros::delay(20); 
+	}
 	//Resets motors
 	left_motor.set_zero_position(0); 
 	right_motor.set_zero_position(0); 
@@ -70,6 +74,15 @@ void initialize() {
 	mLoad.set_value(true); 
 
 	Inertial.reset();
+
+	if (auton == 3)
+	{
+		Inertial.set_heading(90); 
+	}
+	else
+	{
+		Inertial.set_heading(0); 
+	}
 
 	wing.set_value(true);
 	

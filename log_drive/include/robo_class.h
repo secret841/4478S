@@ -19,6 +19,7 @@ class defineRobot {
         void drivePID(double inches, double velocit, int waitTime); 
         void turnPID(double heading, double velocit, int waitTime); 
         void swingPID(double heading, double velocit, int waitTime);
+        void turnToGoal(int waitTime);
 };
 
 void defineRobot::setPID(double p, double i, double d, double tP, double tI, double tD)
@@ -49,8 +50,8 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
         error = heading - Inertial.get_rotation();
         double power = (error * tKP) + (derivative * tKD); 
 
-        left_motor.move_velocity(power); 
-        right_motor.move_velocity(-power); 
+        left_motor.move_velocity(power * velocit); 
+        right_motor.move_velocity(-power * velocit); 
 
         derivative = error - prevError; 
         prevError = error; 
@@ -66,6 +67,76 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
     right_motor.move_velocity(0); 
 }
 
+ void defineRobot::turnToGoal(int waitTime) {
+
+    double currDist = distanceSensor.get_distance(); //get current distance sensor read (mm)
+    bool foundGoal = false; 
+    int time = 0; 
+
+    double heading = Inertial.get_rotation() + 10; 
+    double error = 10; 
+
+    if (currDist >= 200 && currDist <= 700)
+    {
+        left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+        right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
+        left_motor.move_velocity(0);
+        right_motor.move_velocity(0); 
+        return; 
+    }
+
+    while (fabs(error) >= 0.1 && !foundGoal && time <= waitTime/2)
+    {
+        currDist = distanceSensor.get_distance();
+        if (currDist >= 200 && currDist <= 850)
+        {
+            foundGoal = true; 
+        }
+        error = heading - Inertial.get_rotation();
+
+         left_motor.move_velocity(error * 2); 
+        right_motor.move_velocity(-error * 2); 
+
+         time += 20;  //Increments time
+        pros::delay(20); 
+       
+    }
+
+    if (foundGoal)
+    {
+         left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+        right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
+        left_motor.move_velocity(0);
+        right_motor.move_velocity(0); 
+        return; 
+    }
+    else
+    {
+        time = 0; 
+        error = 10; 
+        heading = Inertial.get_rotation() - 20;
+        while (fabs(error) >= 0.1 && !foundGoal && time <= waitTime/2)
+        {
+            currDist = distanceSensor.get_distance();
+            if (currDist >= 200 && currDist <= 850)
+            {
+                foundGoal = true; 
+            }
+            error = heading - Inertial.get_rotation();
+
+            left_motor.move_velocity(error * 2); 
+            right_motor.move_velocity(-error * 2); 
+        
+            time += 20; 
+         pros::delay(20); 
+        } 
+    }
+
+   left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+        right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
+        left_motor.move_velocity(0);
+        right_motor.move_velocity(0); 
+}
 //Only right swing at the moment
 void defineRobot::swingPID(double heading, double velocit, int waitTime)
 {
