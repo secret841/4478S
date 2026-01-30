@@ -73,10 +73,10 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
     bool foundGoal = false; 
     int time = 0; 
 
-    double heading = Inertial.get_rotation() + 10; 
+    double heading = Inertial.get_rotation() + 15; 
     double error = 10; 
 
-    if (currDist >= 200 && currDist <= 700)
+    if (currDist >= 30 && currDist <= 750)
     {
         left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
         right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
@@ -85,19 +85,20 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
         return; 
     }
 
-    while (fabs(error) >= 0.1 && !foundGoal && time <= waitTime/2)
+    while (fabs(error) >= 1 && !foundGoal && time <= waitTime/2)
     {
         currDist = distanceSensor.get_distance();
-        if (currDist >= 200 && currDist <= 850)
+        if (currDist >= 30 && currDist <= 750)
         {
             foundGoal = true; 
         }
         error = heading - Inertial.get_rotation();
 
-         left_motor.move_velocity(error * 2); 
-        right_motor.move_velocity(-error * 2); 
+         left_motor.move_velocity(100); 
+        right_motor.move_velocity(-100); 
 
          time += 20;  //Increments time
+         pros::lcd::set_text(5, "Error " + std::to_string(error)); 
         pros::delay(20); 
        
     }
@@ -114,18 +115,19 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
     {
         time = 0; 
         error = 10; 
-        heading = Inertial.get_rotation() - 20;
-        while (fabs(error) >= 0.1 && !foundGoal && time <= waitTime/2)
+        heading = Inertial.get_rotation() - 30;
+        while (fabs(error) >= 1 && !foundGoal && time <= waitTime/2)
         {
             currDist = distanceSensor.get_distance();
-            if (currDist >= 200 && currDist <= 850)
+            if (currDist >= 30 && currDist <= 750)
             {
                 foundGoal = true; 
             }
             error = heading - Inertial.get_rotation();
 
-            left_motor.move_velocity(error * 2); 
-            right_motor.move_velocity(-error * 2); 
+            left_motor.move_velocity(-100); 
+            right_motor.move_velocity(100);
+             pros::lcd::set_text(5, "Error " + std::to_string(error)); 
         
             time += 20; 
          pros::delay(20); 

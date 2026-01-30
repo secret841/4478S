@@ -74,15 +74,8 @@ void initialize() {
 	mLoad.set_value(true); 
 
 	Inertial.reset();
-
-	if (auton == 3)
-	{
-		Inertial.set_heading(90); 
-	}
-	else
-	{
-		Inertial.set_heading(0); 
-	}
+	Inertial.set_heading(0); 
+	
 
 	wing.set_value(true);
 	

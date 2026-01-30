@@ -14,6 +14,7 @@ void lowGoalCoward()
 	//Low Goal Coward: Start = 90 Degrees
 	Robot.drivePID(34.5, 1, 1500); 
 		Robot.turnPID(92, 1, 1000); //+92 Degrees
+		intakeLift.set_value(false); 
 		matchLoader.set_value(true); //Puts matchloader down
 		mLoad.set_value(false); 
 		pros::delay(300); 
@@ -35,11 +36,11 @@ void lowGoalCoward()
 		Robot.turnPID(88, 1, 300); //-4 Degrees
 		Robot.drivePID(-32, 1.5, 1000);
 
-		intakeLift.set_value(true);
+		intakeLift.set_value(true); 
 			matchLoader.set_value(false);
 			mLoad.set_value(true); 
 		intakeUp.move_velocity(600); 
-		pros::delay(1300); 
+		pros::delay(1600); 
 		intakeUp.move_velocity(-100);
 
 	
@@ -53,5 +54,5 @@ void lowGoalCoward()
 		Robot.drivePID(12, 2.5, 500);
 		Robot.turnPID(-93, 1.2, 200);  //-90 Degrees Readjust
 		wing.set_value(true); //Wing Down
-		Robot.drivePID(8, 2.2, 650); //RAAAAM
+		Robot.drivePID(15, 0.5, 850); //RAAAAM
 }

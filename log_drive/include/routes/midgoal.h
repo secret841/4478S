@@ -13,7 +13,7 @@ void midgoal()
 	 
 	Robot.setPID(1.1, 0, 0.56, 2.9, 0, 0.9); 
     intakeLow.move_velocity(600);
-		intakeUp.move_velocity(-50);
+		intakeUp.move_velocity(-80);
 		wing.set_value(false); //Wing up 
 		matchLoader.set_value(false); //Puts matchloader up
 		mLoad.set_value(true); 
@@ -21,17 +21,17 @@ void midgoal()
 		Robot.drivePID(31, 0.8, 2000); //Drive forward pick up blocks 
 		Robot.turnPID(-106.5, 1, 1200); // -108 Degrees turn to mid goal
 		intakeLow.move_velocity(600);
-		Robot.drivePID(-17, 0.9, 1000); //Drive to mid goal
+		Robot.drivePID(-17, 0.9, 900); //Drive to mid goal
 
 		intakeLift.set_value(true); //Lifts up hood
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(450); 
-		pros::delay(400); 
+		pros::delay(200); 
 		intakeLift.set_value(false); //Puts hood down
 		intakeUp.move_velocity(-120);
 
 		intakeLow.move_velocity(0); 
-		Robot.drivePID(57, 1, 2800); //Turn and drive to loader
+		Robot.drivePID(58, 1, 2800); //Turn and drive to loader
 		pros::delay(200);
 		Robot.turnPID(-159, 1.3, 1100); //-138 Degrees: PLS CHANGE IF IT DOESNT WORK YOU MADE IT MORE NEGATIVE
 
@@ -39,39 +39,42 @@ void midgoal()
 		Robot.drivePID(-6, 1, 150); //Back Up a bit
 		matchLoader.set_value(true); //Puts matchloader down
 		mLoad.set_value(false); 
-		pros::delay(200);
-		Robot.drivePID(21, 0.4, 700); //Drive into matchloader
+		pros::delay(100);
+		Robot.drivePID(21, 0.3, 700); //Drive into matchloader
 
 		Robot.drivePID(-2, 1, 200); //Drive Back a bit
 		//Wiggle
- 		Robot.drivePID(3, 0.5, 300); 
-		Robot.drivePID(5.5, 0.7, 300);
+ 		Robot.drivePID(6, 0.5, 300); 
+		Robot.drivePID(7, 0.7, 300);
 
 		pros::delay(100); 
-		Robot.drivePID(-5, 0.5, 150); //Drive Back
+		Robot.drivePID(-18, 0.5, 450); //Drive Back
+		Robot.turnPID(-155, 1, 300); 
 
-		Robot.turnToGoal(1000);
+		intakeLow.move_velocity(0);
 
-		
-		Robot.drivePID(-30, 2.5, 900); 
+		Robot.turnToGoal(2000);
+		Robot.drivePID(-30, 3, 850); 
 		matchLoader.set_value(false); //Put matchloader back up
 		mLoad.set_value(true); 
 
-		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(600); 
-		intakeLift.set_value(true); 
+		intakeLift.set_value(true); //Lifts hood
 
 		intakeLow.move_velocity(600);
+		intakeUp.move_velocity(600); 
+		
+		intakeLow.move_velocity(600);
 		pros::delay(1500); 
-		wing.set_value(true); //Wing Down
+		
 		intakeLift.set_value(false);
 
 		Robot.drivePID(2, 1, 300);
 		Robot.turnPID(-248, 1.6, 600);
-		Robot.drivePID(12, 1, 700);
-
-		Robot.turnPID(-338, 1.2, 700); 
-		Robot.drivePID(17.5, 1.8, 1050);
+		Robot.drivePID(-14, 1.9, 500); //Drive back and go back up
+		
+		Robot.turnPID(-154, 1.5, 680); 
+		wing.set_value(true); //Wing Down
+		Robot.drivePID(-17.5, 0.8, 1050);
 		/*Robot.drivePID(5, 1, 200);
 		
 		Robot.turnPID(-81, 1.5, 750);
