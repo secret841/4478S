@@ -18,6 +18,7 @@ void skills()
 		Robot.turnPID(92, 1, 1000); //+92 Degrees
 		matchLoader.set_value(true); //Puts matchloader down
 		mLoad.set_value(false); 
+		wing.set_value(false); 
 		pros::delay(300); 
 
 		intakeLow.move_velocity(600); //Turn on intake(s)
@@ -89,10 +90,10 @@ void skills()
 
 		pros::delay(1500); 
 
-		//Drive Back and then realign
+		//Drive Back and then realign (2nd matchloader)
 		intakeLow.move_velocity(0); 
 		intakeUp.move_velocity(-100);
-		Robot.drivePID(-5, 1.5, 300); //Drives back and realigns
+		Robot.drivePID(-15, 1.5, 700); //Drives back and realigns
 		Robot.turnPID(-90, 1, 1000);
 
 		Robot.turnToGoal(2000); //Religns with Goal Again
@@ -113,8 +114,8 @@ void skills()
 		Robot.drivePID(6, 1, 500);
 		intakeLift.set_value(false); //Puts down hood
 
-		Robot.turnPID(-173, 1, 1500); 
-		Robot.drivePID(105, 0.9, 5500); //Drive to 3rd loader
+		Robot.turnPID(-170, 1, 1500); 
+		Robot.drivePID(105, 0.8, 5500); //Drive to 3rd loader
 
 		Robot.turnPID(-90, 1, 1300); //Faces goal
 		Robot.turnToGoal(2000); 
@@ -137,7 +138,7 @@ void skills()
 
 		intakeLow.move_velocity(0); 
 		intakeUp.move_velocity(-100);
-		Robot.drivePID(-5, 1.5, 300); //Drives back and realigns
+		Robot.drivePID(-11, 1.1, 700); //Drives back and realigns
 		Robot.turnPID(-90, 1, 1000);
 
 		Robot.turnToGoal(2000); //Religns with Goal Again
@@ -147,5 +148,7 @@ void skills()
 		intakeLow.move_relative(-50, 100); 
 		intakeLow.move_velocity(600); //Scores again
 		intakeUp.move_velocity(600);
+
+		pros::delay(2500);
 
 }

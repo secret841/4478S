@@ -15,6 +15,6 @@ void blankauto()
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(-100);
 
-		Robot.drivePID(10, 1, 2500);
+		Robot.drivePID(5, 1, 2500);
 
 }
