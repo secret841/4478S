@@ -23,31 +23,31 @@ void on_center_button() {
 	
 	if (auton == 1)
 	{
-		pros::lcd::set_text(2, "Main Low Goal Auton");
+		pros::lcd::set_text(6, "          Main Low Goal Auton");
 	}
 	else if (auton == 2)
 	{
-		pros::lcd::set_text(2, "Main Mid Goal Auton");
+		pros::lcd::set_text(6, "          Main Mid Goal Auton");
 	}  
 	else if (auton == 3)
 	{
-		pros::lcd::set_text(2, "Skills Auton"); 
+		pros::lcd::set_text(6, "          Skills Auton"); 
 	}
 	else if (auton == 4)
 	{
-		pros::lcd::set_text(2, "Mid Goal Coward"); 
+		pros::lcd::set_text(6, "          Mid Goal Coward"); 
 	}
 	else if (auton == 5)
 	{
-		pros::lcd::set_text(2, "Low Goal Coward"); 
+		pros::lcd::set_text(6, "          Low Goal Coward"); 
 	}
 	else if (auton == 6)
 	{
-		pros::lcd::set_text(2, "Blank Auton for teammates with solo awp");
+		pros::lcd::set_text(6, "Blank Auto for tm8 with solo awp");
 	}
 	else
 	{
-		pros::lcd::clear_line(2);
+		pros::lcd::clear_line(6);
 		auton = 0; 
 	}
 
@@ -212,7 +212,7 @@ void opcontrol() {
 			if (right < 0)
 				rightLog = -rightLog; 
 
-			//Making one side slightly slower using this awful log function
+			/*//Making one side slightly slower using this awful log function
 			//Happens at specific speed and same speed
 			if (fabs(leftLog) >= 95 && fabs(rightLog) >= 95 && (leftLog/rightLog) > 0)
 			{
@@ -237,7 +237,9 @@ void opcontrol() {
 			{
 				left_motor.move(leftLog); 
 				right_motor.move(rightLog); 
-			}
+			}*/
+			left_motor.move(leftLog); 
+			right_motor.move(rightLog); 
 		
 		}
 		else

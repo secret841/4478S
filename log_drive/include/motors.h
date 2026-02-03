@@ -5,7 +5,7 @@
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 pros::MotorGroup left_motor ({-10, -19, -20}, pros::MotorGearset::blue);
-pros::MotorGroup right_motor({1, 14, 12}, pros::MotorGearset::blue); 
+pros::MotorGroup right_motor({1, 15, 12}, pros::MotorGearset::blue); 
 
 pros::Imu Inertial(4);
 
