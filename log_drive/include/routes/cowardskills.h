@@ -16,7 +16,7 @@ void cowardSkills()
 		matchLoader.set_value(false); //Puts matchloader down
 		mLoad.set_value(true); 
 		wing.set_value(false); 
-		pros::delay(300); 
+		pros::delay(600);
 
 		intakeLow.move_velocity(600); //Turn on intake(s)
 		intakeUp.move_velocity(-100);

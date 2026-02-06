@@ -111,7 +111,7 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
     {
         left_motor.move_velocity(20); 
         right_motor.move_velocity(-20); 
-        pros::delay(50); 
+        pros::delay(30); 
          left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
         right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
         left_motor.move_velocity(0);
