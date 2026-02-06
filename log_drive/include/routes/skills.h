@@ -10,14 +10,16 @@ void skills()
 	 defineRobot Robot = defineRobot("4478S"); 
 	
 	//First three are drivePID, next three are turnPID
-	Robot.setPID(1.1, 0, 0.56, 2.9, 0, 0.9); 
+	Robot.setPID(0.85, 0, 0.15, 2.2, 0, 0.93); 
+
+	matchLoader.set_value(false); //Puts matchloader down
+		mLoad.set_value(true);
     
 	//Low Goal Coward: Start = 90 Degrees
 	Robot.drivePID(34.5, 1, 1500); 
 	pros::delay(200);
 		Robot.turnPID(92, 1, 1000); //+92 Degrees
-		matchLoader.set_value(true); //Puts matchloader down
-		mLoad.set_value(false); 
+		 
 		wing.set_value(false); 
 		pros::delay(300); 
 
@@ -42,8 +44,8 @@ void skills()
 		Robot.drivePID(-5, 1.5, 300); 
 		Robot.turnPID(88, 1, 300); //-4 Degrees
 		Robot.drivePID(-32, 1.5, 1100);
-		matchLoader.set_value(false); //Puts matchloader up
-		mLoad.set_value(true); 
+		matchLoader.set_value(true); //Puts matchloader up
+		mLoad.set_value(false); 
 
 
 		Robot.drivePID(7, 1.5, 500);

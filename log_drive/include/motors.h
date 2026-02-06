@@ -4,21 +4,21 @@
 //Defining motors and controller
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 
-pros::MotorGroup left_motor ({-10, -19, -20}, pros::MotorGearset::blue);
-pros::MotorGroup right_motor({1, 15, 12}, pros::MotorGearset::blue); 
+pros::MotorGroup left_motor ({-14, -11, -20}, pros::MotorGearset::blue);
+pros::MotorGroup right_motor({15, 2, 9}, pros::MotorGearset::blue); 
 
-pros::Imu Inertial(4);
+pros::Imu Inertial(1);
 
-pros::ADIDigitalOut intakeLift('B');
-pros::ADIDigitalOut intakeLift2('C'); 
-pros::ADIDigitalOut wing('A'); 
+pros::ADIDigitalOut intakeLift('D');
+pros::ADIDigitalOut intakeLift2('F'); 
+pros::ADIDigitalOut wing('H'); 
 
 
-pros::ADIDigitalOut mLoad('F');
-pros::ADIDigitalOut matchLoader('G'); 
+pros::ADIDigitalOut mLoad('C');
+pros::ADIDigitalOut matchLoader('A'); 
 
-pros::Distance distanceSensor(6); 
+pros::Distance distanceSensor(17); 
 
-pros::Motor intakeLow(3, pros::MotorGearset::blue); 
-pros::Motor intakeUp(-5, pros::MotorGearset::blue);
+pros::Motor intakeLow(10, pros::MotorGearset::blue); 
+pros::Motor intakeUp(-12, pros::MotorGearset::blue);
 pros::Motor intakeRight(-2, pros::MotorGearset::blue); 

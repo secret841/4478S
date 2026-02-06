@@ -9,6 +9,7 @@
 #include "routes/midgoalcoward.h"
 #include "routes/lowgoalcoward.h"
 #include "routes/blankauto.h"
+#include "routes/cowardskills.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -16,7 +17,7 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 3; 
+int auton = 7; 
 void on_center_button() {
 	auton++; 
 	
@@ -45,6 +46,10 @@ void on_center_button() {
 	{
 		pros::lcd::set_text(6, "Blank Auto for tm8 with solo awp");
 	}
+	else if (auton == 7)
+	{
+		pros::lcd::set_text(6, "Coward Skills");
+	}
 	else
 	{
 		pros::lcd::clear_line(6);
@@ -70,8 +75,8 @@ void initialize() {
 
 	//Puts wing down + matchloader up
 	 
-	matchLoader.set_value(false);
-	mLoad.set_value(true); 
+	matchLoader.set_value(true);
+	mLoad.set_value(false); 
 
 	Inertial.reset();
 	Inertial.set_heading(0); 
@@ -163,6 +168,11 @@ void autonomous() {
 		pros::lcd::set_text(1, "BLANK AUTON FOR TEAMMATES WITH SOLO AWP");
 		blankauto(); 
 	}
+	if (auton == 7)
+	{
+		pros::lcd::set_text(1, "Coward Skills");
+		cowardSkills(); 
+	}
 	 
 	//Robot.drivePID(-10, 1, 2000);
 	
@@ -212,7 +222,7 @@ void opcontrol() {
 			if (right < 0)
 				rightLog = -rightLog; 
 
-			/*//Making one side slightly slower using this awful log function
+			//Making one side slightly slower using this awful log function
 			//Happens at specific speed and same speed
 			if (fabs(leftLog) >= 95 && fabs(rightLog) >= 95 && (leftLog/rightLog) > 0)
 			{
@@ -237,7 +247,7 @@ void opcontrol() {
 			{
 				left_motor.move(leftLog); 
 				right_motor.move(rightLog); 
-			}*/
+			}
 			left_motor.move(leftLog); 
 			right_motor.move(rightLog); 
 		

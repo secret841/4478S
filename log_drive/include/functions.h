@@ -3,7 +3,7 @@
 #include "motors.h"
 
 const float wheelRadius = 3.25; 
-const float gearRatio = 36/60;
+const float gearRatio = 0.5; //TYPE OUT THE DECIMALS - NO FRACTIONS!!!
 float inchesToDegrees(double inches)
 {
     double degrees = (inches) / (2 * M_PI * wheelRadius * gearRatio);

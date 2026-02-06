@@ -70,10 +70,13 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
  void defineRobot::turnToGoal(int waitTime) {
 
     double currDist = distanceSensor.get_distance(); //get current distance sensor read (mm)
-    bool foundGoal = false; 
+    double getSize = distanceSensor.get_object_size(); 
+    bool foundGoal = false;  
     int time = 0; 
 
-    double heading = Inertial.get_rotation() + 15; 
+     pros::lcd::set_text(5, "getSize " + std::to_string(getSize)); 
+
+    double heading = Inertial.get_rotation() + 12.5; 
     double error = 10; 
 
     if (currDist >= 30 && currDist <= 750)
@@ -88,23 +91,27 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
     while (fabs(error) >= 1 && !foundGoal && time <= waitTime/2)
     {
         currDist = distanceSensor.get_distance();
+        //getSize = distanceSensor.get_object_size(); 
         if (currDist >= 30 && currDist <= 750)
         {
             foundGoal = true; 
         }
         error = heading - Inertial.get_rotation();
 
-         left_motor.move_velocity(100); 
-        right_motor.move_velocity(-100); 
+         left_motor.move_velocity(50); 
+        right_motor.move_velocity(-50); 
 
          time += 20;  //Increments time
-         pros::lcd::set_text(5, "Error " + std::to_string(error)); 
+         pros::lcd::set_text(5, "currDist " + std::to_string(currDist)); 
         pros::delay(20); 
        
     }
 
     if (foundGoal)
     {
+        left_motor.move_velocity(20); 
+        right_motor.move_velocity(-20); 
+        pros::delay(50); 
          left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
         right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
         left_motor.move_velocity(0);
@@ -115,9 +122,10 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
     {
         time = 0; 
         error = 10; 
-        heading = Inertial.get_rotation() - 30;
+        heading = Inertial.get_rotation() - 25;
         while (fabs(error) >= 1 && !foundGoal && time <= waitTime/2)
         {
+             //getSize = distanceSensor.get_object_size(); 
             currDist = distanceSensor.get_distance();
             if (currDist >= 30 && currDist <= 750)
             {
@@ -125,8 +133,8 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
             }
             error = heading - Inertial.get_rotation();
 
-            left_motor.move_velocity(-100); 
-            right_motor.move_velocity(100);
+            left_motor.move_velocity(-50); 
+            right_motor.move_velocity(50);
              pros::lcd::set_text(5, "Error " + std::to_string(error)); 
         
             time += 20; 
@@ -180,7 +188,7 @@ void defineRobot::drivePID(double inches, double velocit, int waitTime)
     double derivative = 0;  
     double prevError = 0; 
 
-    double slew = 15;
+    double slew = 5;
     int currWait = 0; 
 
  
@@ -201,32 +209,37 @@ void defineRobot::drivePID(double inches, double velocit, int waitTime)
             power < 0 ? power = -slew: power = slew; 
         }
 
-            double factor = 20 + 5.2 * log((power - 100) * (power - 100)); 
-    //Manual power adjust
-    if (power < -500)
-    {
-        left_motor.move_velocity(power); 
-        right_motor.move_velocity(power + factor); 
-    }
-    else if (power > 500)
-    {
-         left_motor.move_velocity(power); 
-        right_motor.move_velocity(power - factor); 
-    }
-    else
-    {
-         left_motor.move_velocity(power); 
-        right_motor.move_velocity(power); 
-    }
-        
+       if (fabs(power) >= 550)
+        {
+            double factor = 21.5 + log((power - 300) * (power - 300)); 
+            if (power >= 0)
+            {
+                left_motor.move_velocity(power - factor); 
+                right_motor.move_velocity(power - factor);
+            }
+            else
+            {
+                left_motor.move_velocity(power + factor); 
+                right_motor.move_velocity(power + factor);
+            }
+
+        }
+        else
+        {
+            left_motor.move_velocity(power); 
+            right_motor.move_velocity(power);
+        }
+
+          
 
         //Get change in error
        
         prevError = error;
 
         //Delay to keep CPU healthy, increment slew rate
-        slew += 20; 
+        slew += 15; 
         currWait += 20;
+        pros::lcd::set_text(5, std::to_string(error)); 
         pros::delay(20);
         // pros::lcd::set_text(1, std::to_string(error));  
 
