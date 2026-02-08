@@ -18,7 +18,7 @@ void midgoal()
 		wing.set_value(false); //Wing up 
 		
 
-		Robot.drivePID(31, 0.85, 1800); //Drive forward pick up blocks 
+		Robot.drivePID(32.5, 0.7, 1800); //Drive forward pick up blocks 
 		
 		matchLoader.set_value(false); //Puts matchloader down
 		mLoad.set_value(true); 
@@ -71,12 +71,11 @@ void midgoal()
 
 		Robot.drivePID(7.5, 2, 250);
 		Robot.turnPID(-248, 1.6, 600);
-		pros::delay(100); 
-		Robot.drivePID(-17, 0.8, 500); //Drive back and go back up
+		Robot.drivePID(-11.5, 1.1, 500); //Drive back and go back up
 	
-		Robot.turnPID(-155, 1.2, 600); 
+		Robot.turnPID(-158, 1.5, 500); 
 		wing.set_value(true); //Wing Down
-		Robot.drivePID(-25.5, 1, 1050);
+		Robot.drivePID(-25.5, 1.2, 1050);
 		
 		
 
