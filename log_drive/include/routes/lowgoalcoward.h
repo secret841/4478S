@@ -9,15 +9,16 @@ void lowGoalCoward()
     defineRobot Robot = defineRobot("4478S"); 
 	
 	//First three are drivePID, next three are turnPID
-	Robot.setPID(1.1, 0, 0.56, 2.9, 0, 0.9); 
+	Robot.setPID(0.85, 0, 0.15, 2.2, 0, 0.93); 
     
 	//Low Goal Coward: Start = 90 Degrees
 	Robot.drivePID(34.5, 1, 1500); 
 		Robot.turnPID(92, 1, 1000); //+92 Degrees
-		wing.set_value(false); 
+		wing.set_value(false); //Wing up
+
 		intakeLift.set_value(false); 
-		matchLoader.set_value(true); //Puts matchloader down
-		mLoad.set_value(false); 
+		matchLoader.set_value(false); //Puts matchloader down
+		mLoad.set_value(true); 
 		pros::delay(300); 
 
 		intakeLow.move_velocity(600); //Turn on intake(s)
@@ -38,8 +39,8 @@ void lowGoalCoward()
 		Robot.drivePID(-32, 1.5, 1000);
 
 		intakeLift.set_value(true); 
-			matchLoader.set_value(false);
-			mLoad.set_value(true); 
+			matchLoader.set_value(true); //Matchloader back up
+			mLoad.set_value(false); 
 		intakeUp.move_velocity(600); 
 		pros::delay(1600); 
 		intakeUp.move_velocity(-100);

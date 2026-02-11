@@ -62,18 +62,20 @@ void midgoal()
 
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(600); 
+
+		Robot.drivePID(-10, 1, 250);
 		
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(600); 
-		pros::delay(1500); 
+		pros::delay(1250); 
 		
 		intakeLift.set_value(false);
 
 		Robot.drivePID(7.5, 2, 250);
 		Robot.turnPID(-248, 1.6, 600);
-		Robot.drivePID(-11.5, 1.1, 500); //Drive back and go back up
-	
-		Robot.turnPID(-158, 1.5, 500); 
+		Robot.drivePID(-10.5, 1.1, 500); //Drive back and go back up
+
+		Robot.turnPID(-153, 1.5, 500); 
 		wing.set_value(true); //Wing Down
 		Robot.drivePID(-25.5, 1.2, 1050);
 		
