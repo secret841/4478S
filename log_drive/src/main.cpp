@@ -78,6 +78,8 @@ void initialize() {
 	matchLoader.set_value(true);
 	mLoad.set_value(false); 
 
+	intakeLift.set_value(false); 
+
 	Inertial.reset();
 	Inertial.set_heading(0); 
 	
@@ -297,7 +299,7 @@ void opcontrol() {
 		}
 		else
 		{
-			intakeUp.move_velocity(-50);
+			intakeUp.move_velocity(-20);
 			lift = false; 
 		}
 

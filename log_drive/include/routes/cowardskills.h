@@ -22,18 +22,19 @@ void cowardSkills()
 		intakeUp.move_velocity(-100);
 
 		pros::delay(200); 
-		Robot.drivePID(13, 0.85, 1000); //Drive to loader
+		Robot.drivePID(13, 0.35, 1000); //Drive to loader
 
-		Robot.drivePID(-2, 1, 200); //Drive Back a bit
+		Robot.drivePID(-2.5, 1, 300); //Drive Back a bit
 		//Wiggle
-		Robot.drivePID(5, 0.4, 400); 
-		Robot.drivePID(5, 0.4, 400);
-		Robot.drivePID(5, 0.4, 400);
+		Robot.drivePID(5, 0.7, 400); 
+		pros::delay(300);
+		Robot.drivePID(-1, 1, 300); //Drive Back a bit
+		Robot.drivePID(5, 0.7, 400); 
 
-		pros::delay(1300); 
+		pros::delay(2000); 
 
 		//Drive Back and then realign
-		intakeUp.move_velocity(-100);
+		intakeUp.move_velocity(-20);
 		intakeUp.move_velocity(-100); 
 		intakeLow.move_velocity(0); 
 
@@ -45,11 +46,22 @@ void cowardSkills()
 		mLoad.set_value(false); 
 
         intakeLow.move_velocity(600); 
-        intakeUp.move_velocity(600); 
+        intakeUp.move_velocity(600);
+		
+		Robot.drivePID(-10, 1, 500);
 
 		intakeLift.set_value(true); //Puts hood up
-        pros::delay(2000); 
+        pros::delay(2500); 
 
+		 intakeUp.move_velocity(0);
+		Robot.drivePID(15, 0.5, 1000); 
+		Robot.drivePID(-15, 1, 1000); 
+
+		 intakeLow.move_velocity(600); 
+        intakeUp.move_velocity(600);
+		
+		Robot.drivePID(-10, 1, 500);
+		pros::delay(1500); 
 		Robot.turnPID(90, 1, 500); 
 
 
@@ -60,7 +72,7 @@ void cowardSkills()
         Robot.drivePID(36, 1, 2000); 
 		
 
-		Robot.turnPID(155, 1, 2000);
+		Robot.turnPID(169, 1, 2000);
 		matchLoader.set_value(false); //Puts matchloader down
 		mLoad.set_value(true); 
 
