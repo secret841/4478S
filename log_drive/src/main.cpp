@@ -76,7 +76,7 @@ void initialize() {
 	//Puts wing down + matchloader up
 	 
 	matchLoader.set_value(true);
-	mLoad.set_value(false); 
+	//mLoad.set_value(false); 
 
 	intakeLift.set_value(false); 
 
@@ -321,12 +321,12 @@ void opcontrol() {
 		if (lift)
 		{
 			intakeLift.set_value(true);
-			intakeLift2.set_value(true);
+			//intakeLift2.set_value(true);
 		}
 		else
 		{
 			intakeLift.set_value(false);
-			intakeLift2.set_value(false);
+			//intakeLift2.set_value(false);
 		}
 
 
@@ -337,12 +337,12 @@ void opcontrol() {
 		if (matchLoad)
 		{
 			matchLoader.set_value(true);
-			mLoad.set_value(false);
+			//mLoad.set_value(false);
 		}
 		else
 		{
 			matchLoader.set_value(false);
-			mLoad.set_value(true);
+			//mLoad.set_value(true);
 		}
 
 		

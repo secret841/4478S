@@ -33,7 +33,7 @@ void midgoal()
 		Robot.drivePID(-17, 0.9, 800); //Drive to mid goal
 
 		matchLoader.set_value(false); //Puts matchloader down
-		mLoad.set_value(true); 
+		//mLoad.set_value(true); 
 
 		intakeLift.set_value(true); //Lifts up hood
 		intakeLow.move_velocity(600);
@@ -55,7 +55,7 @@ void midgoal()
 
 		Robot.drivePID(-2.5, 1, 300); //Drive Back a bit
 		//Wiggle
- 		Robot.drivePID(8, 0.35, 300); 
+ 		Robot.drivePID(8, 0.55, 300); 
 		pros::delay(450);
 		//Robot.drivePID(3.5, 0.5, 300); 
 		
@@ -65,7 +65,7 @@ void midgoal()
 		Robot.turnToGoal(2000);
 		Robot.drivePID(-30, 0.8, 1250); 
 		matchLoader.set_value(true); //Put matchloader back up
-		mLoad.set_value(false); 
+		//mLoad.set_value(false); 
 
 		intakeLift.set_value(true); //Lifts hood
 
@@ -86,7 +86,7 @@ void midgoal()
 
 		Robot.turnPID(-152, 1.5, 500); 
 		wing.set_value(true); //Wing Down
-		Robot.drivePID(-25.5, 1.4, 1050);
+		Robot.drivePID(-25.5, 1.2, 1050);
 		
 		
 
