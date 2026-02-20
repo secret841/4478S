@@ -37,7 +37,9 @@ void midgoal()
 
 		intakeLift.set_value(true); //Lifts up hood
 		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(600); 
+		intakeUp.move_velocity(200); //Reduce Later
+
+		//pros::delay(450); 
 		intakeLift.set_value(false); //Puts hood down
 		intakeUp.move_velocity(-50);
 
@@ -56,7 +58,7 @@ void midgoal()
 		Robot.drivePID(-2.5, 1, 300); //Drive Back a bit
 		//Wiggle
  		Robot.drivePID(8, 0.55, 300); 
-		pros::delay(450);
+		pros::delay(250);
 		//Robot.drivePID(3.5, 0.5, 300); 
 		
 		Robot.drivePID(-30, 1, 300); //Drive Back
@@ -84,9 +86,9 @@ void midgoal()
 		Robot.turnPID(-248, 1.6, 600);
 		Robot.drivePID(-12.5, 1.1, 500); //Drive back and go back up
 
-		Robot.turnPID(-152, 1.5, 500); 
+		Robot.turnPID(-152, 1.5, 400); 
 		wing.set_value(true); //Wing Down
-		Robot.drivePID(-25.5, 1.2, 1050);
+		Robot.drivePID(-25.5, 1.4, 1050);
 		
 		
 
