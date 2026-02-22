@@ -3,6 +3,7 @@
 #include "motors.h"
 #include "robo_class.h"
 #include "functions.h"
+#include "timereallocation.h"
 #include "routes/lowgoal.h"
 #include "routes/midgoal.h"
 #include "routes/skills.h"
@@ -18,6 +19,7 @@
  * "I was pressed!" and nothing.
  */
 int auton = 2; 
+
 void on_center_button() {
 	auton++; 
 	
@@ -33,6 +35,7 @@ void on_center_button() {
 	else if (auton == 3)
 	{
 		pros::lcd::set_text(6, "          Skills Auton"); 
+		maxTime = 60000; //Changes max time for skills
 	}
 	else if (auton == 4)
 	{
@@ -49,6 +52,7 @@ void on_center_button() {
 	else if (auton == 7)
 	{
 		pros::lcd::set_text(6, "Coward Skills");
+		maxTime = 60000; //Changes max time for skills
 	}
 	else
 	{

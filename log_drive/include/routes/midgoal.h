@@ -3,6 +3,7 @@
 #include "motors.h"
 #include "robo_class.h"
 #include "functions.h"
+#include "timereallocation.h"
 
 void midgoal()
 {
@@ -58,7 +59,7 @@ void midgoal()
 		Robot.drivePID(-2.5, 1, 300); //Drive Back a bit
 		//Wiggle
  		Robot.drivePID(8, 0.55, 300); 
-		pros::delay(250);
+		pros::delay(250);  maxTime -= 250; //Subtracts time off 
 		//Robot.drivePID(3.5, 0.5, 300); 
 		
 		Robot.drivePID(-30, 1, 300); //Drive Back
@@ -78,7 +79,7 @@ void midgoal()
 		
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(600); 
-		pros::delay(1650); 
+		pros::delay(1650); maxTime -= 1650; 
 		
 		intakeLift.set_value(false);
 
@@ -86,9 +87,22 @@ void midgoal()
 		Robot.turnPID(-248, 1.6, 600);
 		Robot.drivePID(-12.5, 1.1, 500); //Drive back and go back up
 
-		Robot.turnPID(-152, 1.5, 400); 
+		//Priority followed by og time
+		const int numFunctions = 2; //VERY IMPORTANT!
+		storage Storge[] = {
+			{5, 400},
+			{10, 1050}
+		};
+		
+		storage StorgeCopy[numFunctions]; 
+		std::copy(std::begin(Storge), std::end(Storge), std::begin(StorgeCopy)); 
+
+		reallocateTime(Storge, StorgeCopy); 
+
+		//Reassigns new values
+		Robot.turnPID(-152, 1.5, Storge[0].originalTime); 
 		wing.set_value(true); //Wing Down
-		Robot.drivePID(-25.5, 1.4, 1050);
+		Robot.drivePID(-25.5, 1.4, Storge[1].originalTime);
 		
 		
 

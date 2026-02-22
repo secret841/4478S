@@ -61,6 +61,7 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
         pros::delay(20); 
         pros::lcd::set_text(1, std::to_string(error)); 
     }
+    maxTime -= currWait; 
     left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
     left_motor.move_velocity(0);
@@ -112,7 +113,8 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
          left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
         right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
         left_motor.move_velocity(0);
-        right_motor.move_velocity(0); 
+        right_motor.move_velocity(0);
+        maxTime -= time;  
         return; 
     }
     else
@@ -139,6 +141,7 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
         } 
     }
 
+    maxTime -= time; 
    left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
         right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
         left_motor.move_velocity(0);
@@ -241,6 +244,7 @@ void defineRobot::drivePID(double inches, double velocit, int waitTime)
         // pros::lcd::set_text(1, std::to_string(error));  
 
     }
+    maxTime -= currWait; 
     //Stops the motors
     left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 

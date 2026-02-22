@@ -2,6 +2,7 @@
 #include "main.h"
 #include "motors.h"
 
+int maxTime = 15000; //How much time autos have
 const float wheelRadius = 3.25; 
 const float gearRatio = 0.5; //TYPE OUT THE DECIMALS - NO FRACTIONS!!!
 float inchesToDegrees(double inches)
