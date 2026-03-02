@@ -61,7 +61,7 @@ void reallocateTime(storage StorageArray[], storage StorageArrayCopy[])
             bool proportionMatch1 = (StorageArray[i].propoTime < StorageArray[j].propoTime - 0.125);
             bool proportionMatch2 =  (StorageArray[i].propoTime - StorageArray[j].propoTime) > 0.125; 
             
-            if ((StorageArray[i].priority >= StorageArray[j].priority) && (proportionMatch1 || StorageArray[j].priority >= StorageArray[i].priority && proportionMatch2))
+            if ((StorageArray[i].priority >= StorageArray[j].priority && proportionMatch1) || (StorageArray[j].priority >= StorageArray[i].priority && proportionMatch2))
             {
                 while (proportionMatch1)
                 {
@@ -69,6 +69,7 @@ void reallocateTime(storage StorageArray[], storage StorageArrayCopy[])
                     StorageArray[j].originalTime -= 2; 
                     StorageArray[i].originalTime += 2; 
                     StorageArray[i].propoTime =  float(StorageArray[i].originalTime) / StorageArrayCopy[i].originalTime;
+                     StorageArray[j].propoTime =  float(StorageArray[j].originalTime) / StorageArrayCopy[j].originalTime;
                 }
                 while (proportionMatch2)
                 {
@@ -76,6 +77,7 @@ void reallocateTime(storage StorageArray[], storage StorageArrayCopy[])
                     StorageArray[j].originalTime += 2; 
                     StorageArray[i].originalTime -= 2; 
                     StorageArray[i].propoTime =  float(StorageArray[i].originalTime) / StorageArrayCopy[i].originalTime;
+                     StorageArray[j].propoTime =  float(StorageArray[j].originalTime) / StorageArrayCopy[j].originalTime;
                 }
             }
             

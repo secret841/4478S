@@ -20,18 +20,14 @@ void midgoal()
 		
 		
 
-		Robot.drivePID(32.5, 0.9, 1500); //Drive forward pick up blocks 
+		Robot.drivePID(33.5, 0.4, 1500); //Drive forward pick up blocks
+		  
 		 intakeLow.move_velocity(600);
- 
-		Robot.drivePID(5, 0.2, 300);
-		Robot.drivePID(-5, 0.2, 300);  
-
-		
 		
 		Robot.turnPID(-106.5, 1, 1000); // -108 Degrees turn to mid goal
 		intakeLow.move_velocity(600);
 		
-		Robot.drivePID(-17, 0.9, 800); //Drive to mid goal
+		Robot.drivePID(-18, 0.9, 800); //Drive to mid goal
 
 		matchLoader.set_value(false); //Puts matchloader down
 		//mLoad.set_value(true); 
@@ -40,33 +36,32 @@ void midgoal()
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(200); //Reduce Later
 
-		//pros::delay(450); 
+		pros::delay(300); 
 		intakeLift.set_value(false); //Puts hood down
 		intakeUp.move_velocity(-50);
 
 		intakeLow.move_velocity(0);
 		
 		
-		Robot.drivePID(52, 0.95, 2200); //Turn and drive to loader
-
-		
-		pros::delay(50);
-		Robot.turnPID(-161, 1.3, 900); //-138 Degrees: PLS CHANGE IF IT DOESNT WORK YOU MADE IT MORE NEGATIVE
+		Robot.drivePID(51.5, 0.95, 1800); //Turn and drive to loader
+		Robot.turnPID(-161, 1.3, 800); //-138 Degrees: PLS CHANGE IF IT DOESNT WORK YOU MADE IT MORE NEGATIVE
  
 		intakeLow.move_velocity(600);
-		Robot.drivePID(28.5, 0.25, 900); //Drive into matchloader
+		Robot.drivePID(30.5, 0.35, 700); //Drive into matchloader
 
-		Robot.drivePID(-2.5, 1, 300); //Drive Back a bit
+		Robot.drivePID(-2.5, 1, 200); //Drive Back a bit
 		//Wiggle
- 		Robot.drivePID(8, 0.55, 300); 
-		pros::delay(250);  maxTime -= 250; //Subtracts time off 
+ 		Robot.drivePID(2.5, 1.3, 200); //Wiggle
+		intakeLow.move_velocity(600);
+		Robot.drivePID(2.5, 1.3, 200); 
+		pros::delay(350);  maxTime -= 350; //Subtracts time off 
 		//Robot.drivePID(3.5, 0.5, 300); 
 		
 		Robot.drivePID(-30, 1, 300); //Drive Back
-		Robot.turnPID(-161, 1, 300); 
+		Robot.turnPID(-161, 1, 200); 
 
 		Robot.turnToGoal(2000);
-		Robot.drivePID(-30, 0.8, 1250); 
+		Robot.drivePID(-30, 0.75, 1250); 
 		matchLoader.set_value(true); //Put matchloader back up
 		//mLoad.set_value(false); 
 
@@ -81,17 +76,18 @@ void midgoal()
 		intakeUp.move_velocity(600); 
 		pros::delay(1650); maxTime -= 1650; 
 		
+		intakeUp.move_velocity(0); 
 		intakeLift.set_value(false);
 
-		Robot.drivePID(7.5, 2, 250);
-		Robot.turnPID(-248, 1.6, 600);
-		Robot.drivePID(-12.5, 1.1, 500); //Drive back and go back up
+		Robot.drivePID(7.5, 2, 300);
+		Robot.turnPID(-248, 1.6, 550);
+		Robot.drivePID(-12, 1.1, 700); //Drive back and go back up
 
 		//Priority followed by og time
 		const int numFunctions = 2; //VERY IMPORTANT!
 		storage Storge[] = {
-			{5, 400},
-			{10, 1050}
+			{8, 750},
+			{8, 1050}
 		};
 		
 		storage StorgeCopy[numFunctions]; 
@@ -100,9 +96,9 @@ void midgoal()
 		reallocateTime(Storge, StorgeCopy); 
 
 		//Reassigns new values
-		Robot.turnPID(-152, 1.5, Storge[0].originalTime); 
+		Robot.turnPID(-154, 1.3, Storge[0].originalTime); 
 		wing.set_value(true); //Wing Down
-		Robot.drivePID(-25.5, 1.4, Storge[1].originalTime);
+		Robot.drivePID(-27, 1, Storge[1].originalTime);
 		
 		
 
