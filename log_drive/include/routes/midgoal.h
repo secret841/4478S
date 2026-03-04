@@ -20,7 +20,7 @@ void midgoal()
 		
 		
 
-		Robot.drivePID(33.5, 0.4, 1500); //Drive forward pick up blocks
+		Robot.drivePID(34.8, 0.4, 1500); //Drive forward pick up blocks
 		  
 		 intakeLow.move_velocity(600);
 		
@@ -43,17 +43,17 @@ void midgoal()
 		intakeLow.move_velocity(0);
 		
 		
-		Robot.drivePID(51.5, 0.95, 1800); //Turn and drive to loader
-		Robot.turnPID(-161, 1.3, 800); //-138 Degrees: PLS CHANGE IF IT DOESNT WORK YOU MADE IT MORE NEGATIVE
+		Robot.drivePID(52.5, 0.95, 1800); //Turn and drive to loader
+		Robot.turnPID(-160, 1.3, 800); //-138 Degrees: PLS CHANGE IF IT DOESNT WORK YOU MADE IT MORE NEGATIVE
  
 		intakeLow.move_velocity(600);
-		Robot.drivePID(30.5, 0.35, 700); //Drive into matchloader
+		Robot.drivePID(30.5, 0.3, 700); //Drive into matchloader
 
 		Robot.drivePID(-2.5, 1, 200); //Drive Back a bit
 		//Wiggle
- 		Robot.drivePID(2.5, 1.3, 200); //Wiggle
+ 		Robot.drivePID(3.5, 1.3, 200); //Wiggle
 		intakeLow.move_velocity(600);
-		Robot.drivePID(2.5, 1.3, 200); 
+		Robot.drivePID(3.5, 1.3, 200); 
 		pros::delay(350);  maxTime -= 350; //Subtracts time off 
 		//Robot.drivePID(3.5, 0.5, 300); 
 		
@@ -77,7 +77,7 @@ void midgoal()
 		pros::delay(1650); maxTime -= 1650; 
 		
 		intakeUp.move_velocity(0); 
-		intakeLift.set_value(false);
+		//intakeLift.set_value(false);
 
 		Robot.drivePID(7.5, 2, 300);
 		Robot.turnPID(-248, 1.6, 550);
