@@ -36,7 +36,7 @@ void lowgoal()
 		Robot.drivePID(48, 0.95, 2200); //Turn and drive to loader - NEEDS TO BE CHANGED THE MOST
 
 		matchLoader.set_value(false); //Puts matchloader down
-		mLoad.set_value(true); 
+		
 		pros::delay(50);
 		Robot.turnPID(159, 1.3, 1000); //-138 Degrees: PLS CHANGE IF IT DOESNT WORK YOU MADE IT MORE NEGATIVE
  
@@ -54,7 +54,7 @@ void lowgoal()
 		Robot.turnToGoal(2000);
 		Robot.drivePID(-30, 1.2, 750); 
 		matchLoader.set_value(true); //Put matchloader back up
-		mLoad.set_value(false); 
+		 
 
 		intakeLift.set_value(true); //Lifts hood
 

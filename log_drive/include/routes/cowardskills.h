@@ -12,9 +12,9 @@ void cowardSkills()
 	Robot.setPID(0.85, 0, 0.15, 2.2, 0, 0.93); 
     Robot.drivePID(34.5, 1, 1500); 
 	pros::delay(200);
-		Robot.turnPID(92, 1, 1000); //+92 Degrees
+		Robot.turnPID(93, 1, 1000); //+92 Degrees
 		matchLoader.set_value(false); //Puts matchloader down
-		mLoad.set_value(true); 
+		
 		wing.set_value(false); 
 		pros::delay(600);
 
@@ -43,7 +43,7 @@ void cowardSkills()
         Robot.turnToGoal(1000); 
 		Robot.drivePID(-32, 1.5, 1100);
 		matchLoader.set_value(true); //Puts matchloader up
-		mLoad.set_value(false); 
+	 
 
         intakeLow.move_velocity(600); 
         intakeUp.move_velocity(600);
@@ -74,13 +74,11 @@ void cowardSkills()
         Robot.drivePID(39.5, 0.8, 2000); 
 		
 
-		Robot.turnPID(180, 1, 2000);
+		Robot.turnPID(170, 1, 2000);
+		Robot.drivePID(1, 1, 300);
 		matchLoader.set_value(false); //Puts matchloader down
-		mLoad.set_value(true); 
-
-		Robot.drivePID(2, 1, 400); 
-
-		pros::delay(500); 
+		
+ 
 		Robot.turnPID(160, 1, 1000);
 
 		Robot.drivePID(35, 0.9, 2000); 
@@ -92,5 +90,5 @@ void cowardSkills()
 		//Robot.drivePID(-10.5, 1.4, 1000); 
 		intakeLift.set_value(false); //Put intake lift down again
 		matchLoader.set_value(true); //Puts matchloader up
-		mLoad.set_value(false); 
+	
 }

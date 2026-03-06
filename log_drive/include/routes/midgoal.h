@@ -5,6 +5,7 @@
 #include "functions.h"
 #include "timereallocation.h"
 
+//REMOVE ALL MLOADS
 void midgoal()
 {
     defineRobot Robot = defineRobot("4478S"); 
@@ -30,7 +31,7 @@ void midgoal()
 		Robot.drivePID(-18, 0.9, 800); //Drive to mid goal
 
 		matchLoader.set_value(false); //Puts matchloader down
-		//mLoad.set_value(true); 
+		
 
 		intakeLift.set_value(true); //Lifts up hood
 		intakeLow.move_velocity(600);
@@ -63,7 +64,7 @@ void midgoal()
 		Robot.turnToGoal(2000);
 		Robot.drivePID(-30, 0.75, 1250); 
 		matchLoader.set_value(true); //Put matchloader back up
-		//mLoad.set_value(false); 
+	 
 
 		intakeLift.set_value(true); //Lifts hood
 
@@ -72,6 +73,7 @@ void midgoal()
 
 		Robot.drivePID(-10, 1, 250);
 		
+		intakeLow.move_relative(-50, 50); 
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(600); 
 		pros::delay(1650); maxTime -= 1650; 
@@ -98,7 +100,7 @@ void midgoal()
 		//Reassigns new values
 		Robot.turnPID(-154, 1.3, Storge[0].originalTime); 
 		wing.set_value(true); //Wing Down
-		Robot.drivePID(-27, 1, Storge[1].originalTime);
+		Robot.drivePID(-27, 0.9, Storge[1].originalTime);
 		
 		
 

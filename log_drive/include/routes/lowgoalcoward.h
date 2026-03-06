@@ -18,11 +18,11 @@ void lowGoalCoward()
 
 		intakeLift.set_value(false); 
 		matchLoader.set_value(false); //Puts matchloader down
-		mLoad.set_value(true); 
+	
 		pros::delay(300); 
 
 		intakeLow.move_velocity(600); //Turn on intake(s)
-		intakeUp.move_velocity(-100);
+		intakeUp.move_velocity(-20);
 
 		Robot.drivePID(11, 0.85, 1000); //Drive to loader
 		 
@@ -40,7 +40,7 @@ void lowGoalCoward()
 
 		intakeLift.set_value(true); 
 			matchLoader.set_value(true); //Matchloader back up
-			mLoad.set_value(false); 
+			
 		intakeUp.move_velocity(600); 
 		pros::delay(1600); 
 		intakeUp.move_velocity(-100);
