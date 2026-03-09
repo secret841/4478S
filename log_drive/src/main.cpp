@@ -18,7 +18,7 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 2; 
+int auton = 3; 
 
 void on_center_button() {
 	auton++; 
@@ -209,10 +209,12 @@ void opcontrol() {
 	bool latch = false; 
 	bool wingy = true;
 	bool lift = true; 
+	int objectSize; 
 
 	intakeLow.move_velocity(0); 
+	
+	
 	while (true) {
-
 		//Log Drive
 		left = master.get_analog(ANALOG_LEFT_Y); 
 		right = master.get_analog(ANALOG_RIGHT_Y);

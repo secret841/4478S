@@ -28,14 +28,14 @@ void midgoal()
 		Robot.turnPID(-106.5, 1, 1000); // -108 Degrees turn to mid goal
 		intakeLow.move_velocity(600);
 		
-		Robot.drivePID(-18, 0.9, 800); //Drive to mid goal
+		Robot.drivePID(-18.5, 0.9, 800); //Drive to mid goal
 
 		matchLoader.set_value(false); //Puts matchloader down
 		
 
 		intakeLift.set_value(true); //Lifts up hood
 		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(200); //Reduce Later
+		intakeUp.move_velocity(230); //Reduce Later
 
 		pros::delay(300); 
 		intakeLift.set_value(false); //Puts hood down
@@ -44,7 +44,7 @@ void midgoal()
 		intakeLow.move_velocity(0);
 		
 		
-		Robot.drivePID(52.5, 0.95, 1800); //Turn and drive to loader
+		Robot.drivePID(53, 0.95, 1800); //Turn and drive to loader
 		Robot.turnPID(-160, 1.3, 800); //-138 Degrees: PLS CHANGE IF IT DOESNT WORK YOU MADE IT MORE NEGATIVE
  
 		intakeLow.move_velocity(600);
@@ -52,9 +52,9 @@ void midgoal()
 
 		Robot.drivePID(-2.5, 1, 200); //Drive Back a bit
 		//Wiggle
- 		Robot.drivePID(3.5, 1.3, 200); //Wiggle
+ 		Robot.drivePID(3.5, 1, 200); //Wiggle
 		intakeLow.move_velocity(600);
-		Robot.drivePID(3.5, 1.3, 200); 
+		Robot.drivePID(3.5, 1, 200); 
 		pros::delay(350);  maxTime -= 350; //Subtracts time off 
 		//Robot.drivePID(3.5, 0.5, 300); 
 		
@@ -83,7 +83,7 @@ void midgoal()
 
 		Robot.drivePID(7.5, 2, 300);
 		Robot.turnPID(-248, 1.6, 550);
-		Robot.drivePID(-12, 1.1, 700); //Drive back and go back up
+		Robot.drivePID(-11.5, 1.1, 700); //Drive back and go back up
 
 		//Priority followed by og time
 		const int numFunctions = 2; //VERY IMPORTANT!
@@ -100,7 +100,7 @@ void midgoal()
 		//Reassigns new values
 		Robot.turnPID(-154, 1.3, Storge[0].originalTime); 
 		wing.set_value(true); //Wing Down
-		Robot.drivePID(-27, 0.9, Storge[1].originalTime);
+		Robot.drivePID(-27, 0.8, Storge[1].originalTime);
 		
 		
 

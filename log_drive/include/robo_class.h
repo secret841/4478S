@@ -94,7 +94,7 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
         getSize = distanceSensor.get_object_size(); 
         currDist = distanceSensor.get_distance();
         //getSize = distanceSensor.get_object_size(); 
-        if ((currDist >= 30 && currDist <= 750) && getSize >= 350)
+        if ((currDist >= 30 && currDist <= 750))
         {
             foundGoal = true; 
         }
@@ -104,7 +104,7 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
         right_motor.move_velocity(-40); 
 
          time += 20;  //Increments time
-         pros::lcd::set_text(5, "currDist " + std::to_string(currDist)); 
+         pros::lcd::set_text(5, "getSize " + std::to_string(getSize)); 
         pros::delay(20); 
        
     }
@@ -127,7 +127,7 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
         {
              getSize = distanceSensor.get_object_size(); 
             currDist = distanceSensor.get_distance();
-            if ((currDist >= 30 && currDist <= 750) && getSize >= 350)
+            if ((currDist >= 30 && currDist <= 750))
             {
                 foundGoal = true; 
             }
