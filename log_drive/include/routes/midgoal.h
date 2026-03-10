@@ -13,7 +13,8 @@ void midgoal()
 	//First three are drivePID, next three are turnPID
 	//Mid Goal Auton - Starts at around 27 Degrees
 	 
-	Robot.setPID(0.85, 0, 0.15, 2.2, 0, 0.93); 
+	Robot.setPID(0.85, 0, 0.15, 2.2, 0, 0.93);
+
 	
     intakeLow.move_velocity(600);
 		intakeUp.move_velocity(-20);

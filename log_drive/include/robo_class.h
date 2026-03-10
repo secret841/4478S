@@ -47,6 +47,7 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
     
     while (fabs(error) >= 0.1 && currWait <= waitTime)
     {
+        master.print(0, 0, "Theta: %f", Inertial.get_rotation()); 
         error = heading - Inertial.get_rotation();
         double power = (error * tKP) + (derivative * tKD); 
 

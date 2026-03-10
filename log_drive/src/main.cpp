@@ -18,7 +18,7 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 3; 
+int auton = 1; 
 
 void on_center_button() {
 	auton++; 
@@ -201,6 +201,7 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+	pros::lcd::initialize();
 	double left, right; 
 	bool matchLoad = false; 
 	bool moveIntake = false;
@@ -209,12 +210,20 @@ void opcontrol() {
 	bool latch = false; 
 	bool wingy = true;
 	bool lift = true; 
-	int objectSize; 
+	int objectSize;
+	int theta;  
 
 	intakeLow.move_velocity(0); 
 	
 	
 	while (true) {
+		//objectSize = distanceSensor.get_object_size(); 
+		theta = Inertial.get_rotation(); 
+		
+		pros::lcd::print(5, "Theta: %f", theta);
+
+		//pros::lcd::print(5, "objectSize: %i", objectSize); 
+		//pros::delay(20); 
 		//Log Drive
 		left = master.get_analog(ANALOG_LEFT_Y); 
 		right = master.get_analog(ANALOG_RIGHT_Y);

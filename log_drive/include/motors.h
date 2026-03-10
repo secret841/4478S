@@ -7,7 +7,7 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::MotorGroup left_motor ({-14, -11, -20}, pros::MotorGearset::blue);
 pros::MotorGroup right_motor({15, 2, 9}, pros::MotorGearset::blue); 
 
-pros::Imu Inertial(1);
+pros::Imu Inertial(3);
 
 pros::ADIDigitalOut intakeLift('D');
 pros::ADIDigitalOut intakeLift2('F'); 
