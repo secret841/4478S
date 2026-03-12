@@ -37,7 +37,7 @@ void cowardSkills()
 
 		Robot.drivePID(-5, 0.8, 700); 
 		Robot.turnPID(88, 1, 300); //-4 Degrees
-        Robot.turnToGoal(1000); 
+        Robot.turnToGoal(1000, 750); 
 		Robot.drivePID(-32, 1.5, 1100);
 		matchLoader.set_value(true); //Puts matchloader up
 	 

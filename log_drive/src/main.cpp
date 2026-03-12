@@ -18,7 +18,7 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 1; 
+int auton = 3; 
 
 void on_center_button() {
 	auton++; 
@@ -215,12 +215,10 @@ void opcontrol() {
 
 	intakeLow.move_velocity(0); 
 	
-	
 	while (true) {
 		//objectSize = distanceSensor.get_object_size(); 
-		theta = Inertial.get_rotation(); 
-		
-		pros::lcd::print(5, "Theta: %f", theta);
+		//theta = Inertial.get_rotation(); 
+		//objectSize = distanceSensor.get_object_size(); 
 
 		//pros::lcd::print(5, "objectSize: %i", objectSize); 
 		//pros::delay(20); 

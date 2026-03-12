@@ -30,28 +30,31 @@ void lowgoal()
 		intakeUp.move_velocity(-20);
 
 		intakeLow.move_velocity(0); 
-		Robot.drivePID(38, 0.95, 1800); //Turn and drive to loader - NEEDS TO BE CHANGED THE MOST
+		Robot.drivePID(35, 0.95, 1800); //Turn and drive to loader - NEEDS TO BE CHANGED THE MOST
 
 		matchLoader.set_value(false); //Puts matchloader down
 		
 		pros::delay(50);
-		Robot.turnPID(157, 1, 1000); //-138 Degrees: PLS CHANGE IF IT DOESNT WORK YOU MADE IT MORE NEGATIVE
+
+		//BIG DELAY ADDED HERE!
+		Robot.turnPID(158, 1, 1000); //-138 Degrees: PLS CHANGE
+	
  
 		intakeLow.move_velocity(600);
-		Robot.drivePID(28.5, 0.3, 800); //Drive into matchloader
- 		Robot.drivePID(7.5, 0.1, 500); 
+		Robot.drivePID(33.5, 0.23, 800); //Drive into matchloader
+ 		Robot.drivePID(9.5, 0.14, 500); 
 		pros::delay(500);
  
-		Robot.drivePID(-30, 1, 300); //Drive Back
-		Robot.turnPID(155, 1, 300); 
-
-		Robot.turnToGoal(2000);
+		Robot.drivePID(-30, 1, 400); //Drive Back
+		Robot.turnPID(151, 1.1, 500); 
+Robot.turnToGoal(2000, 525);
+		
 		Robot.drivePID(-30, 0.8, 900); 
 		matchLoader.set_value(true); //Put matchloader back up
 		 
 
 		intakeLift.set_value(true); //Lifts hood
-		Robot.drivePID(-10, 1, 300);
+		Robot.drivePID(-10, 1.5, 300);
 
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(600); 
@@ -64,11 +67,11 @@ void lowgoal()
 
 		Robot.drivePID(7.5, 1, 300);
 		Robot.turnPID(248.5, 1.6, 550);  
-		Robot.drivePID(11.5, 1.1, 700); 
+		Robot.drivePID(16.5, 1.1, 700); 
 
 		Robot.turnPID(158.5, 1, 1000);
 		wing.set_value(true); //Wing Down 
-		Robot.drivePID(20, 1, 1000); 
+		Robot.drivePID(-29, 0.5, 1000); //Speed up for elims and such
 		
 		intakeLift.set_value(false);
 
