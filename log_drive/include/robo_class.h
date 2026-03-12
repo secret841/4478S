@@ -21,6 +21,7 @@ class defineRobot {
         void turnPID(double heading, double velocit, int waitTime); 
         void swingPID(double heading, double velocit, int waitTime);
         void turnToGoal(int waitTime, int dist);
+        void bumperGo(int velocit, int timeout); 
 };
 
 void defineRobot::setPID(double p, double i, double d, double tP, double tI, double tD)
@@ -70,6 +71,27 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
     right_motor.move_velocity(0); 
 }
 
+void defineRobot::bumperGo(int velocit, int timeout)
+{
+    //Drive fwd until bumper's pressed
+    int time = 0; 
+    while (!bumper.get_value() || time < timeout)
+    {
+        //Move at constant velocity
+        left_motor.move_velocity(velocit);
+        right_motor.move_velocity(velocit); 
+
+        time += 20; 
+        pros::delay(20); 
+    }  
+    
+    //Brake update time reallocation function
+    maxTime -= timeout; 
+    left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    right_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); 
+    left_motor.move_velocity(0);
+    right_motor.move_velocity(0); 
+}
  void defineRobot::turnToGoal(int waitTime, int dist) {
 
     double currDist = distanceSensor.get_distance(); //get current distance sensor read (mm)
