@@ -18,7 +18,7 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-int auton = 3; 
+int auton = 2; 
 
 void on_center_button() {
 	auton++; 
@@ -221,7 +221,10 @@ void opcontrol() {
 		//objectSize = distanceSensor.get_object_size(); 
 
 		//pros::lcd::print(5, "objectSize: %i", objectSize); 
-		//pros::delay(20); 
+		//pros::delay(20);
+
+		//Print Value
+	
 		//Log Drive
 		left = master.get_analog(ANALOG_LEFT_Y); 
 		right = master.get_analog(ANALOG_RIGHT_Y);
@@ -312,7 +315,7 @@ void opcontrol() {
 		}
 		else
 		{
-			intakeUp.move_velocity(-20);
+			intakeUp.move_velocity(-40);
 			lift = false; 
 		}
 

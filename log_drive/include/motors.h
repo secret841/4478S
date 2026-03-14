@@ -17,7 +17,7 @@ pros::ADIDigitalOut wing('H');
 pros::ADIDigitalOut mLoad('C');
 pros::ADIDigitalOut matchLoader('A'); 
 
-pros::ADIDigitalIn bumper('B'); 
+pros::ADIDigitalIn bumper('G'); 
 pros::Distance distanceSensor(17); 
 
 pros::Motor intakeLow(10, pros::MotorGearset::blue); 

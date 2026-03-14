@@ -75,9 +75,13 @@ void defineRobot::bumperGo(int velocit, int timeout)
 {
     //Drive fwd until bumper's pressed
     int time = 0; 
-    while (!bumper.get_value() || time < timeout)
+    while (!bumper.get_value() && time <= timeout)
     {
         //Move at constant velocity
+        if (bumper.get_value() || time > timeout)
+        {
+            break; 
+        }
         left_motor.move_velocity(velocit);
         right_motor.move_velocity(velocit); 
 
@@ -124,7 +128,7 @@ void defineRobot::bumperGo(int velocit, int timeout)
         }
 
         //Checks for object size too
-        if (getSize >= 50)
+        if (getSize >= 40)
         {
             foundGoal = true; 
         }
@@ -162,7 +166,7 @@ void defineRobot::bumperGo(int velocit, int timeout)
                 foundGoal = true; 
             }
             //Checks for object size too
-            if (getSize >= 50)
+            if (getSize >= 40)
             {
                 foundGoal = true; 
             }
@@ -245,7 +249,7 @@ void defineRobot::drivePID(double inches, double velocit, int waitTime)
             power < 0 ? power = -slew: power = slew; 
         }
 
-       if (fabs(power) >= 550)
+       if (fabs(power) >= 530)
         {
             double factor = 21.5 + log((power - 300) * (power - 300)); 
             if (power >= 0)
