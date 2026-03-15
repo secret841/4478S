@@ -12,7 +12,7 @@ void lowgoal()
 	Robot.setPID(0.85, 0, 0.15, 2.2, 0, 0.93); 
 
 	intakeLow.move_velocity(600);
-		intakeUp.move_velocity(-20);
+		intakeUp.move_velocity(0);
 		wing.set_value(false); //Wing up 
 		
 
@@ -28,18 +28,20 @@ void lowgoal()
 		intakeLift.set_value(true); //Lifts up hood
 		intakeLow.move_velocity(600);
 		
-		intakeUp.move_velocity(-20);
+		intakeUp.move_velocity(0);
 
 		intakeLow.move_velocity(0); 
-		Robot.drivePID(33.5, 0.95, 1600); //Turn and drive to loader - NEEDS TO BE CHANGED THE MOST
+		Robot.drivePID(33.5, 1, 1500); // Robot.drivePID(33.5, 0.95, 1600)
 
 		matchLoader.set_value(false); //Puts matchloader down
 		
 		pros::delay(50);
 
 		//BIG DELAY ADDED HERE!
-		Robot.turnPID(158, 1, 1000); //-138 Degrees: PLS CHANGE
-	
+		Robot.turnPID(158.8, 1, 900); //Change time back to 1000ms if it doesn't work
+
+		intakeLow.move_velocity(-600); 
+		pros::delay(100); 
  
 		intakeLow.move_velocity(600);
 		/*
@@ -48,15 +50,15 @@ void lowgoal()
 		*/
 
 		//Wiggle
-		Robot.bumperGo(200, 1000); 
-		Robot.drivePID(-0.5, 1, 200);
+		Robot.bumperGo(250, 700); 
+		Robot.drivePID(0.4, 1, 200);
 
-		Robot.bumperGo(150, 1000); 
-		Robot.drivePID(-0.5, 1, 200);
-		pros::delay(500);
+		Robot.bumperGo(150, 700); 
+		Robot.drivePID(-0.6, 1, 200);
+		pros::delay(350);
  
 		Robot.drivePID(-30, 1, 450); //Drive Back
-		Robot.turnPID(149, 1.1, 600); 
+		Robot.turnPID(154, 1.1, 500); 
 Robot.turnToGoal(2000, 525);
 		
 		Robot.drivePID(-30, 0.8, 900); 
@@ -66,23 +68,23 @@ Robot.turnToGoal(2000, 525);
 		intakeLift.set_value(true); //Lifts hood
 		Robot.drivePID(-10, 1.5, 300);
 
-		intakeLow.move_velocity(600);
-		intakeUp.move_velocity(600); 
-
-		
+		intakeLow.move_velocity(-600); 
+		pros::delay(100); 
 		
 		intakeLow.move_velocity(600);
 		intakeUp.move_velocity(600); 
-		pros::delay(1800); 
+		pros::delay(1650); 
 
+		intakeUp.move_velocity(0); 
 		Robot.drivePID(7.5, 1, 300);
 		Robot.turnPID(248.5, 1.6, 550);  
-		Robot.drivePID(16.5, 1.1, 700); 
+		Robot.drivePID(17.3, 1.1, 700); 
 
 		Robot.turnPID(158.5, 1.3, 800);
 		wing.set_value(true); //Wing Down 
-		Robot.drivePID(-29, 0.55, 1000); //Speed up for elims and such
+		Robot.drivePID(-29, 0.85, 1000); //Speed up for elims and such
 		
+
 		intakeLift.set_value(false);
 
 		//Wing Part not Added Yet

@@ -73,21 +73,18 @@ void defineRobot::turnPID(double heading, double velocit, int waitTime)
 
 void defineRobot::bumperGo(int velocit, int timeout)
 {
+    
     //Drive fwd until bumper's pressed
     int time = 0; 
     while (!bumper.get_value() && time <= timeout)
     {
-        //Move at constant velocity
-        if (bumper.get_value() || time > timeout)
-        {
-            break; 
-        }
         left_motor.move_velocity(velocit);
         right_motor.move_velocity(velocit); 
 
         time += 20; 
-        pros::delay(20); 
+        pros::delay(20);
     }  
+    pros::lcd::set_text(6, "bumper_value " + std::to_string(bumper.get_value()));
     
     //Brake update time reallocation function
     maxTime -= timeout; 
@@ -105,7 +102,7 @@ void defineRobot::bumperGo(int velocit, int timeout)
 
      //pros::lcd::set_text(5, "getSize " + std::to_string(getSize)); 
 
-    double heading = Inertial.get_rotation() + 16; 
+    double heading = Inertial.get_rotation() + 20; 
     double error = 10; 
 
     if (currDist >= 30 && currDist <= dist)
@@ -122,20 +119,20 @@ void defineRobot::bumperGo(int velocit, int timeout)
         getSize = distanceSensor.get_object_size(); 
         currDist = distanceSensor.get_distance();
         //getSize = distanceSensor.get_object_size(); 
-        if ((currDist >= 30 && currDist <= dist))
+        if ((currDist >= 30 && currDist <= dist) && getSize >= 45)
         {
             foundGoal = true; 
         }
 
         //Checks for object size too
-        if (getSize >= 40)
+        if (getSize >= 45)
         {
             foundGoal = true; 
         }
         error = heading - Inertial.get_rotation();
 
-         left_motor.move_velocity(40); 
-        right_motor.move_velocity(-40); 
+         left_motor.move_velocity(60); 
+        right_motor.move_velocity(-60); 
 
          time += 20;  //Increments time
          pros::lcd::set_text(5, "getSize " + std::to_string(getSize)); 
@@ -156,24 +153,21 @@ void defineRobot::bumperGo(int velocit, int timeout)
     {
         time = 0; 
         error = 10; 
-        heading = Inertial.get_rotation() - 32;
+        heading = Inertial.get_rotation() - 40;
         while (fabs(error) >= 1 && !foundGoal && time <= waitTime/2)
         {
+            //Check distance away + size
              getSize = distanceSensor.get_object_size(); 
             currDist = distanceSensor.get_distance();
-            if ((currDist >= 30 && currDist <= dist))
+            if ((currDist >= 30 && currDist <= dist) && (getSize >= 45))
             {
                 foundGoal = true; 
             }
-            //Checks for object size too
-            if (getSize >= 40)
-            {
-                foundGoal = true; 
-            }
+            
             error = heading - Inertial.get_rotation();
 
-            left_motor.move_velocity(-50); 
-            right_motor.move_velocity(50);
+            left_motor.move_velocity(-60); 
+            right_motor.move_velocity(60);
              pros::lcd::set_text(5, "Error " + std::to_string(error)); 
         
             time += 20; 

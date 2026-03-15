@@ -20,7 +20,7 @@ void skills()
 		
 	matchLoader.set_value(false); //Puts matchloader down
 
-     
+
 	//Low Goal Coward: Start = 90 Degrees
 	Robot.drivePID(35, 1, 1500); 
 	pros::delay(200);
@@ -33,13 +33,25 @@ void skills()
 		intakeUp.move_velocity(-30);
 
 		intakeLow.move_velocity(600); //Turn on intake(s)
-		Robot.bumperGo(100, 2000); 
-		Robot.drivePID(-0.7, 1, 400); 
+		Robot.bumperGo(150, 2000); 
 
-		Robot.bumperGo(100, 1000); 
-		Robot.drivePID(-0.7, 1, 500); 
+		//Robot.drivePID(0.25,1,150);
+		//Robot.drivePID(-0.4, 1, 300); 
 
-		pros::delay(1200); 
+		pros::delay(300);
+		Robot.drivePID(-0.8, 1, 300);
+
+		Robot.bumperGo(150, 1000); 
+		//Robot.drivePID(0.25,1,300);
+		//Robot.drivePID(-1, 1, 300); 
+
+		pros::delay(500); 
+		Robot.drivePID(-0.4, 1, 300);
+
+		Robot.bumperGo(150, 300); 
+		Robot.drivePID(1, 1, 200); 
+
+		Robot.bumperGo(200, 200); 
 
 		/*pros::delay(200);
 		Robot.drivePID(-3.5, 1.5, 300); 
@@ -51,10 +63,10 @@ void skills()
 		 
 		intakeLow.move_velocity(600); //Turn on intake(s)
 		intakeLow.move_velocity(600); //Turn on intake(s)
-		pros::delay(500); 
+		pros::delay(550); 
 
 		//Drive Back and then realign
-		intakeUp.move_velocity(-30); 
+		intakeUp.move_velocity(0); 
 		intakeLow.move_velocity(600); 
 
 		Robot.drivePID(-5, 1.5, 300); 
@@ -71,11 +83,17 @@ void skills()
 
 		Robot.turnPID(17, 1.5, 800); //-90 Degrees
 		Robot.drivePID(14, 1, 550); //Makes less if it doesn't work!
-		Robot.turnPID(-84, 1, 900);  //-99 Degrees
+		Robot.turnPID(-82, 1.3, 800);  //-99 Degrees
 
-		Robot.drivePID(93.5, 0.9, 3000); //Drive to other match loader
+		//Split movements: Remove if it doesn't work
+		Robot.drivePID(50, 1, 1300); 
+		Robot.turnPID(-83, 1, 400); 
+		Robot.drivePID(40, 1, 1000); 
+
+		//Robot.drivePID(97.5, 0.8, 3000); //Drive to other match loader
+
 		Robot.turnPID(-185, 1.3, 800); //Turn 
-		Robot.drivePID(12, 1, 800);
+		Robot.drivePID(16.5, 1, 800);
 
 		Robot.turnPID(-90, 1, 800); //Turns to other goal and scores
 		Robot.turnToGoal(2000, 480); 
@@ -86,12 +104,12 @@ void skills()
 		intakeUp.move_velocity(600); 
 		intakeLow.move_velocity(-300); 
 
-		pros::delay(400); 
+		pros::delay(200); 
 		intakeLow.move_velocity(600); 
 		pros::delay(1000); 
 		intakeLow.move_velocity(600); 
 
-		pros::delay(1000); //Pause as we score (usually)
+		pros::delay(1700); //Pause as we score (usually)
 		Robot.drivePID(5, 1, 300); //Drive from goal
 		Robot.turnPID(-88, 1, 800); 
 
@@ -104,12 +122,15 @@ void skills()
 		Robot.drivePID(39, 0.3, 1000); 
 		//Robot.turnPID(-89, 1, 400); //Readjustment turn
 		Robot.bumperGo(100, 1000);
-		Robot.drivePID(-0.8, 1, 300);  
+		Robot.drivePID(-0.6, 1, 300);  
 
 		Robot.bumperGo(100, 1000);
-		Robot.drivePID(-0.8, 1, 300);  
+		Robot.drivePID(-0.3, 1, 300); 
+		
+		pros::delay(300); 
+		Robot.bumperGo(150, 300); 
 
-		pros::delay(2000); 
+		pros::delay(1500); 
 
 		//Drive Back and then realign (2nd matchloader)
 		intakeLow.move_velocity(300); 
@@ -124,11 +145,14 @@ void skills()
 		Robot.drivePID(-10, 0.5, 500); //Backs up into goal		
 
 		intakeUp.move_velocity(600);
+
+		intakeLow.move_velocity(-600); 
+		pros::delay(150); 
 		intakeLow.move_velocity(600); //Scores again
 		
 
 		intakeLift.set_value(true); //Puts hood up
-		pros::delay(2000); 
+		pros::delay(1750); 
 		matchLoader.set_value(true); //Puts matchloader up again
 
 
@@ -143,12 +167,12 @@ void skills()
 //Test code
 
 
-		Robot.drivePID(110, 0.9, 3500); //Drive to 3rd loader
+		Robot.drivePID(112, 0.9, 3500); //Drive to 3rd loader
 
 		Robot.turnPID(-90, 1, 800); //Faces goal
-		Robot.turnToGoal(2000, 750); 
+		Robot.turnToGoal(2000, 450); 
 
-		Robot.drivePID(-30, 1, 1200); //Slams into goal to realign
+		Robot.drivePID(-36, 1, 1200); //Slams into goal to realign
 		matchLoader.set_value(false); //Puts matchloader down again
 
 		pros::delay(200);
@@ -165,10 +189,10 @@ void skills()
 		Robot.bumperGo(100, 1200); 
 		Robot.drivePID(-1, 1, 200);
 		
-		pros::delay(1500); 
+		pros::delay(1400); 
 
 		intakeLow.move_velocity(0); 
-		intakeUp.move_velocity(-20);
+		intakeUp.move_velocity(0);
 		Robot.drivePID(-11, 1.1, 700); //Drives back and realigns
 
 		matchLoader.set_value(true); //Puts matchloader up again
@@ -178,30 +202,33 @@ void skills()
 		Robot.drivePID(-32, 1, 800); //Backs up into goal
 		intakeLift.set_value(true); //Lifts up hood 
 
-		intakeLow.move_relative(-50, 100); 
 		//intakeLow.move_velocity(600); //Scores again
 		//intakeUp.move_velocity(600);
 
 		//pros::delay(2500);
 		Robot.drivePID(10, 1, 800); //Moves away from the matchloader
-		Robot.turnPID(-180, 1, 1000); 
-		Robot.drivePID(18, 1, 1000); 
+		Robot.turnPID(-180, 1.3, 900); 
+		Robot.drivePID(18, 1.2, 900); 
 		Robot.turnPID(-262, 1, 800); //Driving down the laaane
 
-		Robot.drivePID(95, 1, 3000);
+		Robot.drivePID(95, 1, 2900);
 		Robot.turnPID(-359, 1, 800); 
-		Robot.drivePID(10, 1, 800); 
+		Robot.drivePID(12, 1.3, 500); 
+		
+		
+		Robot.turnPID(-273.5, 1.2, 800); //Faces goal
+		Robot.turnToGoal(2000, 450); 
 
-		Robot.turnPID(-270, 1.2, 800); //Faces goal
-		Robot.turnToGoal(2000, 750); 
-
-		Robot.drivePID(-30, 1, 1000); //Slams into goal to realign
-		Robot.drivePID(-12, 1, 1000); //Slams into goal to realign
+		Robot.drivePID(-30, 1, 900); //Slams into goal to realign
+		Robot.drivePID(-12, 1, 500); //Slams into goal to realign
+		intakeLow.move_velocity(-600);
+		
+		pros::delay(150); 
 		intakeLow.move_velocity(600); 
 		intakeUp.move_velocity(600); //Score
 
 		intakeLift.set_value(true); //Lifts up hood 
-		pros::delay(1000); 
+		pros::delay(850); 
 
 		/*Robot.drivePID(35, 0.3, 1000); //Drive to final matchloader :( 
 		matchLoader.set_value(false); //Puts matchloader down 
@@ -220,14 +247,15 @@ void skills()
 		pros::delay(1000);
 		
 		
+			
 		Robot.drivePID(20, 1, 800); 
 
 		Robot.turnPID(-315, 1.5, 800);
-		Robot.drivePID(40, 2, 1000); 
-		Robot.turnPID(-340, 1.5, 800); 
+		Robot.drivePID(31, 2, 900); 
+		Robot.turnPID(-342, 1.5, 600); 
 		
 		Robot.drivePID(30, 1, 1000); 
-		Robot.drivePID(5, 0.2, 300); 
+		Robot.drivePID(10, 0.15, 2000); 
 
 
 

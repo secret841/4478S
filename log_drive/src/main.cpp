@@ -17,8 +17,8 @@
  *
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
- */
-int auton = 2; 
+ */  
+int auton = 3; 
 
 void on_center_button() {
 	auton++; 
@@ -315,7 +315,7 @@ void opcontrol() {
 		}
 		else
 		{
-			intakeUp.move_velocity(-40);
+			intakeUp.move_velocity(0);
 			lift = false; 
 		}
 
