@@ -8,16 +8,16 @@
 //REMOVE ALL MLOADS
 void midgoal()
 {
+
     defineRobot Robot = defineRobot("4478S"); 
 	
 	//First three are drivePID, next three are turnPID
 	//Mid Goal Auton - Starts at around 27 Degrees
 	 
 	Robot.setPID(0.85, 0, 0.15, 2.2, 0, 0.93);
-
-	
+		
     intakeLow.move_velocity(600);
-		intakeUp.move_velocity(0);
+		intakeUp.move_velocity(-10);
 		wing.set_value(false); //Wing up 
 
 		Robot.drivePID(34.5, 0.4, 1500); //Drive forward pick up blocks
@@ -43,7 +43,7 @@ void midgoal()
 		intakeLow.move_velocity(0);
 		
 		
-		Robot.drivePID(55, 0.95, 1800); //Turn and drive to loader
+		Robot.drivePID(54.5, 0.95, 1800); //Turn and drive to loader
 		Robot.turnPID(-159, 1.3, 800); //-138 Degrees: PLS CHANGE IF IT DOESNT WORK YOU MADE IT MORE NEGATIVE
  
 		intakeLow.move_velocity(600);
@@ -65,7 +65,7 @@ void midgoal()
 		pros::delay(400);  maxTime -= 400; //Subtracts time off 
 		//Robot.drivePID(3.5, 0.5, 300); 
 		
-		Robot.drivePID(-25, 1, 600); //Drive Back Before Robot.drivePID(-15, 1, 200)
+		Robot.drivePID(-20, 1, 600); //Drive Back Before Robot.drivePID(-15, 1, 200)
 		Robot.turnPID(-159, 1.3, 350); 
 
 		Robot.turnToGoal(2000, 500);
@@ -92,7 +92,7 @@ void midgoal()
 
 		Robot.drivePID(7.5, 2, 300);
 		Robot.turnPID(-248, 1.6, 550);
-		Robot.drivePID(-11.7, 1, 700); //Drive back and go back up
+		Robot.drivePID(-11.5, 1, 600); //Drive back and go back up
 
 		//Priority followed by og time
 		const int numFunctions = 2; //VERY IMPORTANT!
@@ -107,9 +107,11 @@ void midgoal()
 		reallocateTime(Storge, StorgeCopy); 
 
 		//Reassigns new values
-		Robot.turnPID(-150, 1.3, Storge[0].originalTime); 
+		Robot.turnPID(-150, 1.3, 650); 
 		wing.set_value(true); //Wing Down
-		Robot.drivePID(-27, 0.85, Storge[1].originalTime); //Speed up for elims and good teams
+	
+		left_motor.move_relative(-900, 500); 
+		right_motor.move_relative(-900, 500); 
 		
 		
 

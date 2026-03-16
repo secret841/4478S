@@ -83,9 +83,7 @@ void defineRobot::bumperGo(int velocit, int timeout)
 
         time += 20; 
         pros::delay(20);
-    }  
-    pros::lcd::set_text(6, "bumper_value " + std::to_string(bumper.get_value()));
-    
+    }
     //Brake update time reallocation function
     maxTime -= timeout; 
     left_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
@@ -97,7 +95,7 @@ void defineRobot::bumperGo(int velocit, int timeout)
 
     double currDist = distanceSensor.get_distance(); //get current distance sensor read (mm)
     double getSize = distanceSensor.get_object_size(); 
-    bool foundGoal = false;  
+    bool foundGoal = false;   
     int time = 0; 
 
      //pros::lcd::set_text(5, "getSize " + std::to_string(getSize)); 
@@ -119,20 +117,16 @@ void defineRobot::bumperGo(int velocit, int timeout)
         getSize = distanceSensor.get_object_size(); 
         currDist = distanceSensor.get_distance();
         //getSize = distanceSensor.get_object_size(); 
-        if ((currDist >= 30 && currDist <= dist) && getSize >= 45)
+        if ((currDist >= 30 && currDist <= dist) && getSize >= 51)
         {
             foundGoal = true; 
         }
 
-        //Checks for object size too
-        if (getSize >= 45)
-        {
-            foundGoal = true; 
-        }
+    
         error = heading - Inertial.get_rotation();
 
-         left_motor.move_velocity(60); 
-        right_motor.move_velocity(-60); 
+         left_motor.move_velocity(45); 
+        right_motor.move_velocity(-45); 
 
          time += 20;  //Increments time
          pros::lcd::set_text(5, "getSize " + std::to_string(getSize)); 
@@ -159,7 +153,7 @@ void defineRobot::bumperGo(int velocit, int timeout)
             //Check distance away + size
              getSize = distanceSensor.get_object_size(); 
             currDist = distanceSensor.get_distance();
-            if ((currDist >= 30 && currDist <= dist) && (getSize >= 45))
+            if ((currDist >= 30 && currDist <= dist) && (getSize >= 51))
             {
                 foundGoal = true; 
             }

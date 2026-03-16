@@ -23,11 +23,11 @@ void cowardSkills()
 
 			intakeLow.move_velocity(600); //Turn on intake(s)
 		Robot.bumperGo(150, 2000); 
-		Robot.drivePID(-1, 1, 300); 
+		Robot.drivePID(-0.5, 1, 300); 
 
 		pros::delay(300);
 		Robot.bumperGo(150, 1000); 
-		Robot.drivePID(-1, 1, 300); 
+		Robot.drivePID(-0.5, 1, 300); 
 
 		pros::delay(500); 
 
@@ -40,10 +40,10 @@ void cowardSkills()
 		 
 		intakeLow.move_velocity(600); //Turn on intake(s)
 		intakeLow.move_velocity(600); //Turn on intake(s)
-		pros::delay(500);
+		pros::delay(1000);
 
 		Robot.drivePID(3, 1, 200); 
-		pros::delay(500);
+		pros::delay(1000);
 
 		//Drive Back and then realign
 		intakeUp.move_velocity(-20);
@@ -69,6 +69,7 @@ void cowardSkills()
 		 intakeUp.move_velocity(0);
 		Robot.drivePID(15, 0.5, 1000); 
 		intakeLift.set_value(false); 
+		pros::delay(200); 
 		Robot.drivePID(-15, 1, 1000); 
 
 		intakeLow.move_velocity(-600);
@@ -98,13 +99,13 @@ void cowardSkills()
 		Robot.turnPID(160, 1, 1000);
 		pros::delay(1000);
 
-		Robot.drivePID(35, 0.9, 2000); 
+		Robot.drivePID(30, 0.9, 2000); 
 		
 		wing.set_value(false); 
 
 
 		intakeLow.move_velocity(600); 
-		Robot.drivePID(5, 0.1, 2000);
+		Robot.drivePID(6, 0.1, 2200);
 		//Robot.drivePID(-10.5, 1.4, 1000); 
 		intakeLift.set_value(false); //Put intake lift down again
 		matchLoader.set_value(true); //Puts matchloader up

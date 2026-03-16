@@ -30,7 +30,7 @@ void lowgoal()
 		
 		intakeUp.move_velocity(0);
 
-		intakeLow.move_velocity(0); 
+		intakeLow.move_velocity(600); 
 		Robot.drivePID(33.5, 1, 1500); // Robot.drivePID(33.5, 0.95, 1600)
 
 		matchLoader.set_value(false); //Puts matchloader down
@@ -38,7 +38,7 @@ void lowgoal()
 		pros::delay(50);
 
 		//BIG DELAY ADDED HERE!
-		Robot.turnPID(158.8, 1, 900); //Change time back to 1000ms if it doesn't work
+		Robot.turnPID(161, 1, 900); //Change time back to 1000ms if it doesn't work
 
 		intakeLow.move_velocity(-600); 
 		pros::delay(100); 
@@ -58,7 +58,7 @@ void lowgoal()
 		pros::delay(350);
  
 		Robot.drivePID(-30, 1, 450); //Drive Back
-		Robot.turnPID(154, 1.1, 500); 
+		Robot.turnPID(155, 1.1, 600); 
 Robot.turnToGoal(2000, 525);
 		
 		Robot.drivePID(-30, 0.8, 900); 
